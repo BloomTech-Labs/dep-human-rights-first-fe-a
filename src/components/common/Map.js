@@ -81,10 +81,15 @@ const useStylesForZipCodeFilter = makeStyles(theme => ({
 }));
 
 const Map = () => {
+  // const newBounds = [
+  //   [-127.265625, 25.244696],
+  //   [-64.6875, 50.064192],
+  // ];
   const [viewport, setViewport] = useState({
     latitude: 37.09024,
     longitude: -95.712891,
     zoom: 4,
+    // minZoom: 4,
     width: '100vw',
     height: '76vh',
   });
@@ -310,6 +315,12 @@ const Map = () => {
         .toArray()
         .flat()
     : null;
+
+  // const bounds = mapRef.current
+  // ? mapRef.current
+  //     .getMap()
+  //     .setMaxBounds(newBounds)
+  // : null;
 
   const { clusters, supercluster } = useSupercluster({
     points: points,
@@ -559,8 +570,20 @@ const Map = () => {
           <ReactMapGL
             {...viewport}
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-            mapStyle="mapbox://styles/janecyyu/ckeafpzbv05jh19qdfpxnfmzh"
+            mapStyle="mapbox://styles/martaalicja1/ckfx37li7117819paqxl1cp6x"
             onViewportChange={viewport => {
+              // if ( viewport.longitude < -127.265625 ) {
+              //   viewport.longitude = -127.265625;
+              // }
+              // else if ( viewport.longitude > -64.6875 ) {
+              //   viewport.longitude = -64.6875;
+              // }
+              // else if ( viewport.latitude < 25.244696 ) {
+              //   viewport.latitude = 25.244696;
+              // }
+              // else if ( viewport.latitude > 50.064192 ) {
+              //   viewport.latitude = 50.064192;
+              // }
               setViewport(viewport);
             }}
             ref={mapRef}
