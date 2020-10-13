@@ -2,12 +2,13 @@ import { Flag, People, Map as Mp } from 'react-bootstrap-icons';
 import React from 'react';
 import OldMap from './OldMap';
 import Map from '../common/Map';
+import FiltersForm from './FilterForm';
 
 export const Loading = () => {
   return (
     <div>
       <main>
-        <div className="wrapper">
+        {/* <div className="wrapper">
           <main className="page-main">
             <div className="title-content">
               <div className="banner-title">
@@ -34,6 +35,9 @@ export const Loading = () => {
               <i class="fa fa-chevron-down -page-btn"></i>
             </a>
           </main>
+        </div> */}
+        <div className="filter">
+          <FiltersForm />
         </div>
         <div id="map">
           <Map />
