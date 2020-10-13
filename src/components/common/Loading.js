@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import OldMap from './OldMap';
 import Map from '../common/Map';
 import Graph from '../common/Graph';
+import FiltersForm from './FilterForm';
 
 export const Loading = () => {
   const [viewIndex, setViewIndex] = useState(0);
@@ -52,6 +53,9 @@ export const Loading = () => {
               <i class="fa fa-chevron-down -page-btn"></i>
             </a>
           </main>
+        </div>
+        <div className="filter">
+          <FiltersForm />
         </div>
         <button
           onClick={toggleViewIndex}

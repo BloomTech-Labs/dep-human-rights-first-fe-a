@@ -5,7 +5,9 @@
 .filter-box {
   border: black solid 1px;
   padding: 1.5%;
-  max-width: 700px;
+  max-width: 1500px;
+  margin: 0 auto;
+  min-width: 450px;
 }
 
 .filter-header {
