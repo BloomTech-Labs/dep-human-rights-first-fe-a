@@ -172,8 +172,14 @@ const Map = () => {
       source: 'states',
       layout: {},
       paint: {
-        'line-color': 'rgb(217,169,210, .4)',
+        'line-color': 'rgb(242,140,177)',
         'line-width': 2,
+        'line-opacity': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          0.8,
+          0,
+        ],
       },
     });
 
@@ -197,8 +203,7 @@ const Map = () => {
       }
     });
 
-    // When the mouse leaves the state-fill layer, update the feature state of the
-    // previously hovered feature.
+    // When the mouse leaves the state-fill layer, remove the fill color from it
     map.on('mouseleave', 'state-fills', function() {
       if (hoveredStateId) {
         map.setFeatureState(
