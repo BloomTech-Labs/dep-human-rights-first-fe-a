@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select, Input, Checkbox, Button, Typography } from 'antd';
 import 'antd/dist/antd.css';
-import './FiltersForm.css';
+import './FilterForm.css';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -76,7 +76,7 @@ export default function FiltersForm() {
   return (
     <div className="filter-box">
       <div className="filter-header">
-        <Title level={3}>Filter Your Results</Title>
+        <Title level={4}>Filter Your Results</Title>
         <div>
           <Button type="link" onClick={() => console.log('reset filters')}>
             Reset Filters
