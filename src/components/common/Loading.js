@@ -1,9 +1,27 @@
 import { Flag, People, Map as Mp } from 'react-bootstrap-icons';
-import React from 'react';
+import React, { useState } from 'react';
 import OldMap from './OldMap';
 import Map from '../common/Map';
+import Graph from '../common/Graph';
 
 export const Loading = () => {
+  const [viewIndex, setViewIndex] = useState(0);
+
+  const views = ['map', 'graph'];
+  const otherView = views[views.length - 1 - viewIndex];
+
+  const toggleViewIndex = () => {
+    const mapContainer = document.querySelector('#map');
+
+    viewIndex === 0 ? setViewIndex(1) : setViewIndex(0);
+
+    if (mapContainer.style.display === 'block') {
+      mapContainer.style.display = 'none';
+    } else {
+      mapContainer.style.display = 'block';
+    }
+  };
+
   return (
     <div>
       <main>
@@ -35,9 +53,16 @@ export const Loading = () => {
             </a>
           </main>
         </div>
-        <div id="map">
-          <Map />
+        <button
+          onClick={toggleViewIndex}
+          style={{ zIndex: 20, position: 'relative' }}
+        >
+          {otherView}
+        </button>
+        <div id="map" style={{ display: 'block' }}>
+          {views[viewIndex] === 'map' && <Map />}
         </div>
+        <div id="graph">{views[viewIndex] === 'graph' && <Graph />}</div>
         <div className="last-section">
           <section className="intro" id="about">
             <h2>What is Human Rights Considered?</h2>
