@@ -452,6 +452,7 @@ const Map = () => {
           position: 'absolute',
           width: '200px',
           display: 'none',
+          opacity: 0,
         }}
         onClick={() => {
           if (scrollEnabled) {
@@ -475,6 +476,7 @@ const Map = () => {
           width: '200px',
           top: '3%',
           display: 'none',
+          opacity: 0,
         }}
         onClick={() => {
           map.flyTo({
@@ -496,6 +498,7 @@ const Map = () => {
           width: '200px',
           top: '6%',
           display: 'none',
+          opacity: 0,
         }}
         onClick={() => {
           if (stateJump) {
@@ -535,7 +538,11 @@ const Map = () => {
             for (let i = 0; i < hiddenButtons.length; i++) {
               setTimeout(() => {
                 hiddenButtons[i].style.display = 'block';
-              }, 2500);
+              }, 1500);
+              setTimeout(() => {
+                hiddenButtons[i].style.transition = 'opacity 2s linear';
+                hiddenButtons[i].style.opacity = 1;
+              }, 2000);
             }
           }
         }}
