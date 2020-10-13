@@ -26,7 +26,7 @@ export const Loading = () => {
   return (
     <div>
       <main>
-        <div className="wrapper">
+        {/* <div className="wrapper">
           <main className="page-main">
             <div className="title-content">
               <div className="banner-title">
@@ -53,7 +53,7 @@ export const Loading = () => {
               <i class="fa fa-chevron-down -page-btn"></i>
             </a>
           </main>
-        </div>
+        </div> */}
         <div className="filter">
           <FiltersForm />
         </div>
