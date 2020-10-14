@@ -6,6 +6,7 @@ import statesDB from '../../database/states.json';
 import { Button } from 'antd';
 import myImg from '../../assets/police-badge.png';
 import usZips from 'us-zips';
+import MapButtons from './MapButtons';
 
 const Map = () => {
   // using a NYC API to get dummy data for display on the map
@@ -13,7 +14,7 @@ const Map = () => {
   const [apiMarkerTest, setApiMarkerTest] = useState([]);
   const [currentState, setCurrentState] = useState(
     statesDB.filter(state => {
-      return state.state === 'Massachusetts';
+      return state.state === 'Florida';
     })
   );
   const [currentZip, setCurrentZip] = useState('02184');
@@ -451,29 +452,7 @@ const Map = () => {
 
   return (
     <div className="buttons">
-      <Button
-        type="primary"
-        className="appear"
-        style={{
-          zIndex: 10,
-          position: 'absolute',
-          width: '200px',
-          display: 'none',
-          opacity: 0,
-        }}
-        onClick={() => {
-          if (scrollEnabled) {
-            map.scrollZoom.disable();
-            scrollEnabled = false;
-          } else {
-            map.scrollZoom.enable();
-            scrollEnabled = true;
-          }
-        }}
-      >
-        Scroll Zoom
-      </Button>
-
+      {/* this one button refuses to work when put into a different component */}
       <Button
         type="primary"
         className="appear"
@@ -486,28 +465,6 @@ const Map = () => {
           opacity: 0,
         }}
         onClick={() => {
-          map.flyTo({
-            center: [currentState[0].longitude, currentState[0].latitude],
-            zoom: 7,
-            essential: true, // this animation is considered essential with respect to prefers-reduced-motion
-          });
-        }}
-      >
-        fly to state test
-      </Button>
-
-      <Button
-        type="primary"
-        className="appear"
-        style={{
-          zIndex: 10,
-          position: 'absolute',
-          width: '200px',
-          top: '6%',
-          display: 'none',
-          opacity: 0,
-        }}
-        onClick={() => {
           if (stateJump) {
             stateJump = false;
           } else {
@@ -515,69 +472,16 @@ const Map = () => {
           }
         }}
       >
-        State Jump
+        Fast Travel States
       </Button>
 
-      <Button
-        type="primary"
-        className="appear"
-        style={{
-          zIndex: 10,
-          position: 'absolute',
-          width: '200px',
-          top: '9%',
-          display: 'none',
-          opacity: 0,
-        }}
-        onClick={() => {
-          map.flyTo({
-            center: [usZips[currentZip].longitude, usZips[currentZip].latitude],
-            zoom: 12,
-            essential: true, // this animation is considered essential with respect to prefers-reduced-motion
-          });
-        }}
-      >
-        Test Zip Code
-      </Button>
-
-      <Button
-        type="primary"
-        id="disappear"
-        danger
-        size="large"
-        block
-        style={{ zIndex: 10, position: 'absolute', bottom: '35%' }}
-        onClick={() => {
-          if (scrollEnabled) {
-            map.scrollZoom.disable();
-            scrollEnabled = false;
-          } else {
-            map.scrollZoom.enable();
-            scrollEnabled = true;
-
-            setTimeout(() => {
-              document.getElementById('disappear').style.transition =
-                'opacity 1s linear';
-              document.getElementById('disappear').style.opacity = 0;
-            }, 100);
-            setTimeout(() => {
-              document.getElementById('disappear').style.display = 'none';
-            }, 1000);
-            const hiddenButtons = document.getElementsByClassName('appear');
-            for (let i = 0; i < hiddenButtons.length; i++) {
-              setTimeout(() => {
-                hiddenButtons[i].style.display = 'block';
-              }, 900);
-              setTimeout(() => {
-                hiddenButtons[i].style.transition = 'opacity 1s linear';
-                hiddenButtons[i].style.opacity = 1;
-              }, 1200);
-            }
-          }
-        }}
-      >
-        Start Using Map
-      </Button>
+      <MapButtons
+        scrollEnabled={scrollEnabled}
+        map={map}
+        currentState={currentState}
+        usZips={usZips}
+        currentZip={currentZip}
+      />
     </div>
   );
 };
