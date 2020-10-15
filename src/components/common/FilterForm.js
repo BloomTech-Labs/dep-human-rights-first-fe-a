@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Select, Input, Checkbox, Button, Typography } from 'antd';
+import { updateFilters } from '../../state/actions/';
 import 'antd/dist/antd.css';
 import './FilterForm.css';
 
@@ -8,6 +10,19 @@ const { Option } = Select;
 const { Search } = Input;
 
 export default function FiltersForm() {
+  const initialIncidents = {
+    energyDevices: true,
+    softTechnique: true,
+    hardTechnique: true,
+    projectiles: true,
+    chemical: true,
+    presence: true,
+    other: true,
+  };
+
+  const dispatch = useDispatch();
+  const [incidentsState, setIncidentsState] = useState(initialIncidents);
+
   const stateNames = [
     'Alabama',
     'Alaska',
@@ -73,6 +88,18 @@ export default function FiltersForm() {
 
   const sources = ['One', 'Two', 'Three', 'Four'];
 
+  const getKeyFromName = name => {
+    let key = [...name].filter(char => char !== ' ');
+    key[0] = key[0].toLowerCase();
+    key = key.join('');
+
+    return key;
+  };
+
+  useEffect(() => {
+    dispatch(updateFilters({ incidents: incidentsState }));
+  }, [dispatch, incidentsState]);
+
   return (
     <div className="filter-box">
       <div className="filter-header">
@@ -88,14 +115,18 @@ export default function FiltersForm() {
       </div>
       <div className="all-filters">
         <div className="location-filters">
-          <Select placeholder="Select a State" style={{ width: 150 }}>
+          <Select
+            onSelect={stateName => dispatch(updateFilters({ stateName }))}
+            placeholder="Select a State"
+            style={{ width: 150 }}
+          >
             {stateNames.map((state, id) => {
               return <Option value={state}>{state}</Option>;
             })}
           </Select>
           <Search
             placeholder="Zip Code"
-            onSearch={value => console.log(value)}
+            onSearch={value => dispatch(updateFilters({ zipCode: value }))}
             style={{ width: 150 }}
           />
         </div>
@@ -107,7 +138,14 @@ export default function FiltersForm() {
                 return (
                   <Checkbox
                     defaultChecked
-                    onChange={() => console.log({ incident })}
+                    onChange={e => {
+                      let incidentKey = getKeyFromName(incident);
+
+                      setIncidentsState({
+                        ...incidentsState,
+                        [incidentKey]: e.target.checked,
+                      });
+                    }}
                   >
                     {incident}
                   </Checkbox>
