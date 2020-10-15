@@ -6,3 +6,5 @@
 [0816/173848.630:ERROR:exception_snapshot_win.cc(98)] thread ID 37876 not found in process
 [0816/173848.630:ERROR:exception_snapshot_win.cc(98)] thread ID 28992 not found in process
 [0816/173848.630:ERROR:exception_snapshot_win.cc(98)] thread ID 35304 not found in process
+[1014/114110.943:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1014/114221.214:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)

@@ -4,20 +4,17 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import * as mapboxgl from 'mapbox-gl';
 import statesDB from '../../database/states.json';
 import { Button } from 'antd';
-import myImg from '../../assets/police-badge.png';
 import usZips from 'us-zips';
 import MapButtons from './MapButtons';
+import incidentsDB from '../../database/data2.json';
+import TwitterPopup from './TwitterPopup';
+import ReactDOM from 'react-dom';
+import myImg from '../../assets/police-badge.png';
 
 const Map = () => {
   // using a NYC API to get dummy data for display on the map
   // this will be replaced with our project's backend once it's ready
   const [apiMarkerTest, setApiMarkerTest] = useState([]);
-  const [currentState, setCurrentState] = useState(
-    statesDB.filter(state => {
-      return state.state === 'Florida';
-    })
-  );
-  const [currentZip, setCurrentZip] = useState('02184');
   let scrollEnabled = false; // toggles scroll zoom -- can't use useState because it rerenders the map
   let stateJump = false;
 
@@ -59,20 +56,7 @@ const Map = () => {
     maxBounds: bounds, // Sets bounds as max
   });
 
-  // Marker implementation if we want to use markers over clusters:
-
-  // const markers = apiMarkerTest.map(point => {
-  //     new mapboxgl.Marker()
-  //         .setLngLat([parseFloat(point.longitude), parseFloat(point.latitude)])
-  //         .addTo(map);
-  // });
-
-  map.on('load', function() {
-    map.resize();
-  });
-
   // brings us to user location
-  // Add geolocate control to the map.
   map.addControl(
     new mapboxgl.GeolocateControl({
       positionOptions: {
@@ -102,12 +86,23 @@ const Map = () => {
     properties: {},
   }));
 
-  // filter our clusters -- dummy filter in place
-  const hydro = ['<', ['get', 'mag'], 2];
-  const solar = ['all', ['>=', ['get', 'mag'], 2], ['<', ['get', 'mag'], 3]];
-  const wind = ['all', ['>=', ['get', 'mag'], 3], ['<', ['get', 'mag'], 4]];
-  const gas = ['all', ['>=', ['get', 'mag'], 4], ['<', ['get', 'mag'], 5]];
-  const oil = ['>=', ['get', 'mag'], 5];
+  const geojson2 = incidentsDB.data.map(incident => ({
+    geometry: {
+      type: 'Point',
+      coordinates: [
+        parseFloat(incident.LONGITUDE),
+        parseFloat(incident.LATITUDE),
+      ],
+    },
+    type: 'Feature',
+    properties: {
+      date_text: incident['date_text'],
+      title: incident.text,
+      type: incident['tags_str'],
+      link1: incident.Link1,
+      link2: incident.Link2,
+    },
+  }));
 
   // our categories should be similar to this:
 
@@ -126,329 +121,309 @@ const Map = () => {
   // ];
 
   // colors to use for the categories
-  const colors = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
-  // other possibles colors
   // const colors = ['#8dd3c7','#ffffb3','#bebada','#fb8072','#80b1d3','#fdb462','#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5','#ffed6f'];
+
   let hoveredStateId = null;
 
-  let images = {
-    popup: 'https://docs.mapbox.com/mapbox-gl-js/assets/popup.png',
-    'popup-debug':
-      'https://docs.mapbox.com/mapbox-gl-js/assets/popup_debug.png',
-  };
+  useEffect(() => {
+    map.on('load', () => {
+      // ---- individual states ----
+      map.addSource('states', {
+        type: 'geojson',
+        data: 'https://docs.mapbox.com/mapbox-gl-js/assets/us_states.geojson',
+      });
 
-  const usaBounds = [
-    [-171.791110603, 18.91619],
-    [-171.791110603, 71.3577635769],
-    [-66.96466, 71.3577635769],
-    [-66.96466, 18.91619],
-  ];
-  map.on('load', function() {
-    // --- individual states
-    // source for states
-    map.addSource('states', {
-      type: 'geojson',
-      data: 'https://docs.mapbox.com/mapbox-gl-js/assets/us_states.geojson',
-    });
+      // opacity expression will render the hover effect when a feature's hover state is set to true.
+      map.addLayer({
+        id: 'state-fills',
+        type: 'fill',
+        source: 'states',
+        layout: {},
+        paint: {
+          'fill-color': 'rgb(217,169,210)',
+          'fill-opacity': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            0.1,
+            0,
+          ],
+        },
+      });
 
-    // The feature-state dependent fill-opacity expression will render the hover effect
-    // when a feature's hover state is set to true.
-    map.addLayer({
-      id: 'state-fills',
-      type: 'fill',
-      source: 'states',
-      layout: {},
-      paint: {
-        'fill-color': 'rgb(217,169,210)',
-        'fill-opacity': [
-          'case',
-          ['boolean', ['feature-state', 'hover'], false],
-          0.1,
-          0,
-        ],
-      },
-    });
+      map.addLayer({
+        id: 'state-borders',
+        type: 'line',
+        source: 'states',
+        layout: {},
+        paint: {
+          'line-color': 'rgb(242,140,177)',
+          'line-width': 2,
+          'line-opacity': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            0.6,
+            0,
+          ],
+        },
+      });
 
-    map.addLayer({
-      id: 'state-borders',
-      type: 'line',
-      source: 'states',
-      layout: {},
-      paint: {
-        'line-color': 'rgb(242,140,177)',
-        'line-width': 2,
-        'line-opacity': [
-          'case',
-          ['boolean', ['feature-state', 'hover'], false],
-          0.6,
-          0,
-        ],
-      },
-    });
-
-    // When the user moves their mouse over the state-fill layer, we'll update the
-    // feature state for the feature under the mouse.
-    map.on('mousemove', 'state-fills', function(e) {
-      if (stateJump) {
-        if (e.features.length > 0) {
-          if (hoveredStateId) {
+      // When the user moves over the states, we will update them -- using state's id
+      map.on('mousemove', 'state-fills', function(e) {
+        if (stateJump) {
+          if (e.features.length > 0) {
+            if (hoveredStateId) {
+              map.setFeatureState(
+                { source: 'states', id: hoveredStateId },
+                { hover: false }
+              );
+            }
+            hoveredStateId = e.features[0].id;
             map.setFeatureState(
               { source: 'states', id: hoveredStateId },
-              { hover: false }
+              { hover: true }
             );
           }
-          hoveredStateId = e.features[0].id;
+        }
+      });
+
+      // When the mouse leaves the state-fill layer, remove the fill color from it
+      map.on('mouseleave', 'state-fills', function() {
+        if (hoveredStateId) {
           map.setFeatureState(
             { source: 'states', id: hoveredStateId },
-            { hover: true }
+            { hover: false }
           );
         }
-      }
-    });
-
-    // When the mouse leaves the state-fill layer, remove the fill color from it
-    map.on('mouseleave', 'state-fills', function() {
-      if (hoveredStateId) {
-        map.setFeatureState(
-          { source: 'states', id: hoveredStateId },
-          { hover: false }
-        );
-      }
-      hoveredStateId = null;
-    });
-
-    map.on('click', 'state-fills', function(e) {
-      let currentState = statesDB.filter(state => {
-        return state.state === e.features[0].properties.STATE_NAME;
+        hoveredStateId = null;
       });
-      if (hoveredStateId && stateJump) {
-        map.flyTo({
-          center: [currentState[0].longitude, currentState[0].latitude],
-          zoom: 7,
-          essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+
+      map.on('click', 'state-fills', function(e) {
+        let currentState = statesDB.filter(state => {
+          return state.state === e.features[0].properties.STATE_NAME;
         });
-      }
-    });
-
-    // ------- incidents data visualization--------------
-
-    // upload a custom marker image
-    map.loadImage(
-      // 'https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png',
-      //    "https://www.clipartmax.com/png/middle/302-3022804_swat-icon-swat-icon.png",
-      myImg,
-      function(error, image) {
-        if (error) throw error;
-        map.addImage('cat', image);
-      }
-    );
-
-    // source in geojson format: list of all locations
-    map.addSource('incidents', {
-      type: 'geojson',
-      // data: { features: geojson },
-      data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson',
-      cluster: true,
-      clusterMaxZoom: 14, // Max zoom to cluster points on
-      clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
-      clusterProperties: {
-        // keep separate counts for each magnitude category in a cluster
-        hydro: ['+', ['case', hydro, 1, 0]],
-        solar: ['+', ['case', solar, 1, 0]],
-        wind: ['+', ['case', wind, 1, 0]],
-        gas: ['+', ['case', gas, 1, 0]],
-        oil: ['+', ['case', oil, 1, 0]],
-      },
-    }); // end of add Source
-
-    // cluster layyer
-    map.addLayer({
-      id: 'clusters',
-      type: 'circle',
-      source: 'incidents',
-      // filter: ['has', 'point_count'],
-      // new line for improved clusters
-      filter: [
-        'all',
-        // can specify here a specific incident type
-        ['==', ['get', 'cluster'], true],
-      ],
-      paint: {
-        // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-        // with three steps to implement three types of circles:
-        //   * Blue, 20px circles when point count is less than 100
-        //   * Yellow, 30px circles when point count is between 100 and 750
-        //   * Pink, 40px circles when point count is greater than or equal to 750
-        // 'circle-color': [
-        //     'step',
-        //     ['get', 'point_count'],
-        //     '#51bbd6',
-        //     100,
-        //     '#f1f075',
-        //     750,
-        //     '#f28cb1'
-        // ],
-        'circle-color': 'rgba(0,0,0,.6)',
-        // 'circle-stroke-color': '#8dd3c7',
-        'circle-stroke-color': [
-          'step',
-          ['get', 'point_count'],
-          '#51bbd6',
-          100,
-          '#f1f075',
-          400,
-          '#f28cb1',
-        ],
-        'circle-stroke-width': 5,
-        'circle-radius': ['step', ['get', 'point_count'], 20, 100, 30, 400, 40],
-        // 'circle-radius': 15
-      },
-    }); // end of cluster layer
-
-    // count display on the clusters
-    map.addLayer({
-      id: 'cluster-count',
-      type: 'symbol',
-      source: 'incidents',
-      // filter: ['has', 'point_count'],
-      filter: [
-        'all',
-        // can specify here a specific incident type
-        ['==', ['get', 'cluster'], true],
-      ],
-      layout: {
-        'text-field': '{point_count_abbreviated}',
-        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-        'text-size': 13,
-      },
-      // 'layout': {
-      //     'text-field': ['number-format', ['get', 'point_count'], {}],
-      //     'text-font': ['Montserrat Bold', 'Arial Unicode MS Bold'],
-      //     'text-size': 13
-      //   },
-      paint: {
-        'text-color': '#8dd3c7',
-        // 'text-color': [
-        //     'case',
-        //     ['<', ['get', 'mag'], 3],
-        //     'black',
-        //     'white'
-        //     ]
-      },
-    }); // end of cluster-count layer
-
-    // single point outer layer?
-    map.addLayer({
-      id: 'unclestered-point-outer',
-      type: 'circle',
-      source: 'incidents',
-      filter: [
-        'all',
-        // can specify here a specific incident type
-        ['!=', ['get', 'cluster'], true],
-      ],
-      paint: {
-        'circle-color': 'rgba(27,29,26, 0)',
-        'circle-stroke-color': 'rgba(255,77,79, .1)',
-        'circle-stroke-width': 3,
-        'circle-radius': 23,
-      },
-    });
-
-    // single point:
-    map.addLayer({
-      id: 'unclustered-point',
-      type: 'symbol',
-      source: 'incidents',
-      filter: ['!', ['has', 'point_count']],
-      // paint: {
-      //     // 'circle-color': '#11b4da',
-      //     // 'circle-radius': 4,
-      //     // 'circle-stroke-width': 1,
-      //     // 'circle-stroke-color': '#fff'
-      //   'circle-radius': 5
-      // }
-      // 'filter': [
-      //     'all',
-      //     // can specify here a specific incident type
-      //     ['!=', ['get', 'cluster'], true]
-      //   ],
-      //   'paint': {
-      //   'circle-color': '#8dd3c7',
-      //   'circle-radius': 5
-      //   }
-      layout: {
-        visibility: 'visible',
-        'icon-image': 'cat', // THIS SHOULD BE A MARKER
-        'icon-size': 0.065, // ZOOMED FOR DEMO
-        'icon-allow-overlap': true,
-      },
-      paint: {
-        'icon-color': '#8dd3c7',
-        'icon-halo-color': '#8dd3c7',
-        'icon-halo-width': 2,
-      },
-    });
-
-    // inspect a cluster on click
-    map.on('click', 'clusters', function(e) {
-      const features = map.queryRenderedFeatures(e.point, {
-        layers: ['clusters'],
-      });
-      const clusterId = features[0].properties.cluster_id;
-      map
-        .getSource('incidents')
-        .getClusterExpansionZoom(clusterId, function(err, zoom) {
-          if (err) return;
-
-          map.easeTo({
-            center: features[0].geometry.coordinates,
-            zoom: zoom,
+        if (hoveredStateId && stateJump) {
+          map.flyTo({
+            center: [currentState[0].longitude, currentState[0].latitude],
+            zoom: 7,
+            essential: true, // this animation is considered essential with respect to prefers-reduced-motion
           });
+        }
+      });
+
+      // ------- incidents data visualization--------------
+
+      // upload a custom icon image
+      map.loadImage(
+        // 'https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png', // --> sample url
+        myImg,
+        function(error, image) {
+          if (error) throw error;
+          map.addImage('cat', image);
+        }
+      );
+
+      // source in geojson format: list of all locations
+      map.addSource('incidents', {
+        type: 'geojson',
+        // data: { features: geojson },
+        // data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson', // --> sample data
+        data: { features: geojson2 },
+        cluster: true,
+        clusterMaxZoom: 14, // Max zoom to cluster points on
+        clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
+      }); // end of add Source
+
+      // cluster layyer
+      map.addLayer({
+        id: 'clusters',
+        type: 'circle',
+        source: 'incidents',
+        // filter: ['has', 'point_count'],
+        // new line for improved clusters
+        filter: [
+          'all',
+          // can specify here a specific incident type
+          ['==', ['get', 'cluster'], true],
+        ],
+        paint: {
+          //   * Blue, 20px circles when point count is less than 100
+          //   * Yellow, 30px circles when point count is between 100 and 400
+          //   * Pink, 40px circles when point count is greater than or equal to 400
+          'circle-color': 'rgba(0,0,0,.6)',
+          'circle-stroke-color': [
+            'step',
+            ['get', 'point_count'],
+            '#51bbd6',
+            100,
+            '#f1f075',
+            400,
+            '#f28cb1',
+          ],
+          'circle-stroke-width': 5,
+          'circle-radius': [
+            'step',
+            ['get', 'point_count'],
+            20,
+            100,
+            30,
+            400,
+            40,
+          ],
+        },
+      }); // end of cluster layer
+
+      // count display on the clusters
+      map.addLayer({
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'incidents',
+        // filter: ['has', 'point_count'],
+        filter: [
+          'all',
+          // can specify here a specific incident type
+          ['==', ['get', 'cluster'], true],
+        ],
+        layout: {
+          'text-field': '{point_count_abbreviated}',
+          'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+          'text-size': 13,
+        },
+        paint: {
+          'text-color': '#8dd3c7',
+        },
+      }); // end of cluster-count layer
+
+      // single point outer layer
+      map.addLayer({
+        id: 'unclestered-point-outer',
+        type: 'circle',
+        source: 'incidents',
+        filter: [
+          'all',
+          // can specify here a specific incident type
+          ['!=', ['get', 'cluster'], true],
+        ],
+        paint: {
+          'circle-color': 'rgba(27,29,26, 0)',
+          'circle-stroke-color': 'rgba(255,77,79, .1)',
+          'circle-stroke-width': 3,
+          'circle-radius': 23,
+        },
+      });
+
+      // single point:
+      map.addLayer({
+        id: 'unclustered-point',
+        type: 'symbol',
+        source: 'incidents',
+        filter: ['!', ['has', 'point_count']],
+        //  need below comments as  reference point for actual api
+
+        // paint: {
+        //     // 'circle-color': '#11b4da',
+        //     // 'circle-radius': 4,
+        //     // 'circle-stroke-width': 1,
+        //     // 'circle-stroke-color': '#fff'
+        //   'circle-radius': 5
+        // }
+        // 'filter': [
+        //     'all',
+        //     // can specify here a specific incident type
+        //     ['!=', ['get', 'cluster'], true]
+        //   ],
+        //   'paint': {
+        //   'circle-color': '#8dd3c7',
+        //   'circle-radius': 5
+        //   }
+        layout: {
+          visibility: 'visible',
+          'icon-image': 'cat', // THIS SHOULD BE A MARKER
+          'icon-size': 0.065, // ZOOMED FOR DEMO
+          'icon-allow-overlap': true,
+        },
+        paint: {
+          'icon-color': '#8dd3c7',
+          'icon-halo-color': '#8dd3c7',
+          'icon-halo-width': 2,
+        },
+      });
+
+      // inspect a cluster on click
+      map.on('click', 'clusters', function(e) {
+        const features = map.queryRenderedFeatures(e.point, {
+          layers: ['clusters'],
         });
-    });
+        const clusterId = features[0].properties.cluster_id;
+        map
+          .getSource('incidents')
+          .getClusterExpansionZoom(clusterId, function(err, zoom) {
+            if (err) return;
 
-    // pop up window for individual points
-    map.on('click', 'unclustered-point', function(e) {
-      const coordinates = e.features[0].geometry.coordinates.slice();
-      // currently the popup is populated with with the dummy data properties
-      // we can change those to urls and dates of incidents
-      const mag = e.features[0].properties.mag;
-      let tsunami;
+            map.easeTo({
+              center: features[0].geometry.coordinates,
+              zoom: zoom,
+            });
+          });
+      });
 
-      if (e.features[0].properties.tsunami === 1) {
-        tsunami = 'yes';
-      } else {
-        tsunami = 'no';
-      }
+      // pop up window for individual points
+      map.on('click', 'unclustered-point', e => {
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        // currently the popup is populated with with the dummy data properties
 
-      // Ensure that if the map is zoomed out such that
-      // multiple copies of the feature are visible, the
-      // popup appears over the copy being pointed to.
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
+        const incident = e.features[0].properties;
+        const date = incident['date_text'];
+        const title = incident.title;
+        const type = incident.type;
+        const link = incident.link1;
 
-      new mapboxgl.Popup()
-        .setLngLat(coordinates)
-        .setHTML('magnitude: ' + mag + '<br>Was there a tsunami?: ' + tsunami)
-        .addTo(map);
-    });
+        // if map zoomed out such that multiple copies of the feature are visible, popup appears over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
 
-    map.on('mouseenter', 'clusters', function() {
-      map.getCanvas().style.cursor = 'crosshair';
-    });
-    map.on('mouseleave', 'clusters', function() {
-      map.getCanvas().style.cursor = '';
-    });
+        const innerHtmlContent = `<div> <div style="display: flex; justify-content: space-between;"> <p>${date}</p>
+         <p style="padding-right: 4%; opacity: .8">${type}</p></div>
+          <h2>${title}</h2> <a href="${link}" id="link" style="font-size: 1rem; ">${link}</a>  
+         <br>
+         <br>
+          </div>`;
+        const divElement = document.createElement('div');
+        divElement.setAttribute('id', 'hey');
+        const assignBtn = document.createElement('div');
+        assignBtn.setAttribute('id', 'assignBtn');
+        if (incident.link1.toLowerCase().includes('twitter')) {
+          assignBtn.innerHTML = `<button id="assign"> Learn More</button>`;
+        }
+        divElement.innerHTML = innerHtmlContent;
+        divElement.appendChild(assignBtn);
+        assignBtn.addEventListener('click', e => {
+          const element = <TwitterPopup id="twitterpop" incident={incident} />;
+          ReactDOM.render(element, document.getElementById('hey'));
+        });
 
-    map.on('mouseenter', 'unclustered-point', function() {
-      map.getCanvas().style.cursor = 'crosshair';
-    });
-    map.on('mouseleave', 'unclustered-point', function() {
-      map.getCanvas().style.cursor = '';
-    });
-  }); // end of main map.on()
+        new mapboxgl.Popup({ className: 'apple-popup' })
+          .setLngLat(coordinates)
+          .setDOMContent(divElement)
+          .setMaxWidth('none')
+          .addTo(map);
+      });
+
+      map.on('mouseenter', 'clusters', function() {
+        map.getCanvas().style.cursor = 'crosshair';
+      });
+      map.on('mouseleave', 'clusters', function() {
+        map.getCanvas().style.cursor = '';
+      });
+
+      map.on('mouseenter', 'unclustered-point', function() {
+        map.getCanvas().style.cursor = 'crosshair';
+      });
+      map.on('mouseleave', 'unclustered-point', function() {
+        map.getCanvas().style.cursor = '';
+      });
+    }); // end of main map.on()
+  }, [map]);
 
   return (
     <div className="buttons">
@@ -475,13 +450,7 @@ const Map = () => {
         Fast Travel States
       </Button>
 
-      <MapButtons
-        scrollEnabled={scrollEnabled}
-        map={map}
-        currentState={currentState}
-        usZips={usZips}
-        currentZip={currentZip}
-      />
+      <MapButtons scrollEnabled={scrollEnabled} map={map} usZips={usZips} />
     </div>
   );
 };

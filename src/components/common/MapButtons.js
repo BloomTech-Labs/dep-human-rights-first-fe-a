@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Input, Select } from 'antd';
 import statesDB from '../../database/states.json';
+import myImg2 from '../../assets/HRC.png';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -116,7 +117,12 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
         danger
         size="large"
         block
-        style={{ zIndex: 10, position: 'absolute', bottom: '35%' }}
+        style={{
+          zIndex: 10,
+          position: 'absolute',
+          bottom: '35%',
+          backgroundImage: `url(${myImg2})`,
+        }}
         onClick={() => {
           if (scrollEnabled) {
             map.scrollZoom.disable();
@@ -152,7 +158,7 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
           }
         }}
       >
-        Start Using Map
+        <h2>Start Using Map</h2>
       </Button>
 
       <Button
