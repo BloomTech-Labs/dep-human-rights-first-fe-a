@@ -23,9 +23,11 @@ export default function FiltersForm() {
 
   const dispatch = useDispatch();
   const [incidentsState, setIncidentsState] = useState(initialIncidents);
+
   const filteredStates = statesDB.filter(state => {
     return state.state !== 'Alaska' && state.state !== 'Hawaii';
   });
+
 
   const incidents = [
     'Energy Devices',
@@ -67,13 +69,14 @@ export default function FiltersForm() {
       <div className="all-filters">
         <div className="location-filters">
           <Select
-            showSearch
             onSelect={stateName => dispatch(updateFilters({ stateName }))}
             placeholder="Select a State"
             style={{ width: 150 }}
           >
+
             {filteredStates.map(state => {
               return <Option value={state.state}>{state.state}</Option>;
+
             })}
           </Select>
           <Search
