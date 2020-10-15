@@ -72,7 +72,7 @@ const Map = () => {
   // disable initial scrolling -- toggle it on and off with a button
   map.scrollZoom.disable();
 
-  // --------- clusters
+  // --------- converting json to geojson
 
   const geojson = apiMarkerTest.map(incident => ({
     geometry: {
@@ -210,7 +210,7 @@ const Map = () => {
         }
       });
 
-      // ------- incidents data visualization--------------
+      // ------- incidents data visualization (clusters)--------------
 
       // upload a custom icon image
       map.loadImage(
@@ -384,7 +384,7 @@ const Map = () => {
 
         const innerHtmlContent = `<div> <div style="display: flex; justify-content: space-between;"> <p>${date}</p>
          <p style="padding-right: 4%; opacity: .8">${type}</p></div>
-          <h2>${title}</h2> <a href="${link}" id="link" style="font-size: 1rem; ">${link}</a>  
+          <h2>${title}</h2> <a target="_blank" href="${link}" id="link" style="font-size: 1rem; ">${link}</a>  
          <br>
          <br>
           </div>`;

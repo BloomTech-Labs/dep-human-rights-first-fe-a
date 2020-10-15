@@ -4,6 +4,7 @@ import { Select, Input, Checkbox, Button, Typography } from 'antd';
 import { updateFilters } from '../../state/actions/';
 import 'antd/dist/antd.css';
 import './FilterForm.css';
+import statesDB from '../../database/states.json';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -23,58 +24,10 @@ export default function FiltersForm() {
   const dispatch = useDispatch();
   const [incidentsState, setIncidentsState] = useState(initialIncidents);
 
-  const stateNames = [
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Carolina',
-    'North Dakota',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming',
-  ];
+  const filteredStates = statesDB.filter(state => {
+    return state.state !== 'Alaska' && state.state !== 'Hawaii';
+  });
+
 
   const incidents = [
     'Energy Devices',
@@ -120,8 +73,10 @@ export default function FiltersForm() {
             placeholder="Select a State"
             style={{ width: 150 }}
           >
-            {stateNames.map((state, id) => {
-              return <Option value={state}>{state}</Option>;
+
+            {filteredStates.map(state => {
+              return <Option value={state.state}>{state.state}</Option>;
+
             })}
           </Select>
           <Search
