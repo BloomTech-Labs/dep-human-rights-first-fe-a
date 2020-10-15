@@ -1,25 +1,53 @@
 import React from 'react';
-import { Button, Input, Select } from 'antd';
+import { Button } from 'antd';
 import statesDB from '../../database/states.json';
 import myImg2 from '../../assets/HRC.png';
-
-const { Search } = Input;
-const { Option } = Select;
+import { useSelector } from 'react-redux';
+import { WarningFilled, WarningTwoTone } from '@ant-design/icons';
+// const { Search } = Input;
+// const { Option } = Select;
 
 const MapButtons = ({ scrollEnabled, map, usZips }) => {
-  const filteredStates = statesDB.filter(state => {
-    return state.state !== 'Alaska' && state.state !== 'Hawaii';
-  });
+  const [stateName, zipCode] = useSelector(state => [
+    state.filters.stateName,
+    state.filters.zipCode,
+  ]);
 
-  function onChange(value) {
-    const selectedState = filteredStates.filter(state => {
-      return state.state === value;
+  // const filteredStates = statesDB.filter(state => {
+  //   return state.state !== 'Alaska' && state.state !== 'Hawaii';
+  // });
+
+  // function onChange(value) {
+  //   const selectedState = filteredStates.filter(state => {
+  //     return state.state === value;
+  //   });
+
+  //   map.jumpTo({
+  //     center: [selectedState[0].longitude, selectedState[0].latitude],
+  //     zoom: 7,
+  //     essential: true,
+  //   });
+  // }
+
+  // ----- setting up state jump
+  if (stateName) {
+    const selectedState = statesDB.filter(state => {
+      return state.state === stateName;
     });
 
     map.jumpTo({
       center: [selectedState[0].longitude, selectedState[0].latitude],
       zoom: 7,
       essential: true,
+    });
+  }
+
+  // --- setting up zipCode jump
+  if (usZips[zipCode]) {
+    map.jumpTo({
+      center: [usZips[zipCode].longitude, usZips[zipCode].latitude],
+      zoom: 12,
+      essential: true, // this animation is considered essential with respect to prefers-reduced-motion
     });
   }
 
@@ -48,7 +76,7 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
         Scroll Zoom
       </Button>
 
-      <Select
+      {/* <Select
         showSearch
         placeholder="Select a State"
         className="appear"
@@ -65,9 +93,9 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
         {filteredStates.map((state, id) => {
           return <Option value={state.state}>{state.state}</Option>;
         })}
-      </Select>
+      </Select> */}
 
-      <Search
+      {/* <Search
         className="appear"
         placeholder="enter zip-code"
         onSearch={value => {
@@ -88,7 +116,7 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
           display: 'none',
           opacity: 0,
         }}
-      ></Search>
+      ></Search> */}
 
       <Button
         type="primary"
@@ -97,7 +125,7 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
           zIndex: 10,
           position: 'absolute',
           width: '200px',
-          top: '12%',
+          top: '6%',
           display: 'none',
           opacity: 0,
         }}
@@ -158,7 +186,9 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
           }
         }}
       >
+        <WarningTwoTone twoToneColor="red" />
         <h2>Start Using Map</h2>
+        <WarningFilled style={{ color: 'red' }} />
       </Button>
 
       <Button
@@ -189,7 +219,7 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
           zIndex: 10,
           position: 'absolute',
           width: '200px',
-          top: '15%',
+          top: '9%',
           display: 'none',
           opacity: 0,
         }}

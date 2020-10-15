@@ -32,7 +32,9 @@ const TwitterPopup = ({ incident }) => {
             <div>
               {/* <h2>{incident.title}</h2> */}
               <p>
-                <a href={incident.link1}>{incident.link1}</a>
+                <a target="_blank" href={incident.link1}>
+                  {incident.link1}{' '}
+                </a>
               </p>
               <TwitterTweetEmbed tweetId={getTweetId(incident.link1)} />
             </div>
@@ -40,7 +42,9 @@ const TwitterPopup = ({ incident }) => {
             <div>
               {/* <h2>{incident.title}</h2> */}
               <p>
-                <a href={incident.link1}>{incident.link1}</a>
+                <a target="_blank" href={incident.link1}>
+                  {incident.link1}{' '}
+                </a>
               </p>
             </div>
           )
