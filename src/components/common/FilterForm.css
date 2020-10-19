@@ -1,21 +1,10 @@
-.App {
-  padding: 20px;
-}
-
 .filter-box {
-  border: black solid 1px;
-  padding: 1.5%;
-  max-width: 1500px;
   margin: 0 auto;
-  min-width: 450px;
+  padding: 1%;
+  max-width: 900px;
 }
 
 .filter-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.all-filters {
   display: flex;
   justify-content: space-between;
 }
@@ -27,10 +16,43 @@
   justify-content: space-evenly;
 }
 
-.checkbox-filters {
-  width: 70%;
+.filter-types {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 90px;
 }
 
 .incident-filters {
-  margin-bottom: 2%;
+  width: 64%;
+  margin: 0 auto 2%;
+}
+
+.source-filters {
+  width: 27%;
+  margin: 0 auto 2%;
+}
+
+.search-bars {
+  display: flex;
+  justify-content: center;
+}
+
+h5 {
+  padding-top: 8px;
+  text-align: center;
+}
+
+div.ant-select-selector {
+  margin-left: 10px;
+}
+
+.ant-input-affix-wrapper {
+  margin-left: 20px;
+}
+
+.checkboxes {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
