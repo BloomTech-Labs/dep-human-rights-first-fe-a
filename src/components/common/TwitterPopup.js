@@ -13,6 +13,16 @@ const TwitterPopup = ({ incident }) => {
     return url.split('/').pop();
   };
 
+  const types = [
+    incident.type0,
+    incident.type1,
+    incident.type2,
+    incident.type3,
+    incident.type4,
+    incident.type5,
+    incident.type6,
+  ];
+
   return (
     <div>
       <Modal
@@ -22,7 +32,7 @@ const TwitterPopup = ({ incident }) => {
         onCancel={hideModal}
         footer={
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div>{incident['date_text']}</div> <p>{incident.type}</p>
+            <div>{incident['date_text']}</div> <p>{types}</p>
           </div>
         }
         visible={true}
