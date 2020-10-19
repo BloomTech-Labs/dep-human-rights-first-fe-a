@@ -1,0 +1,26 @@
+.about {
+  font-family: sans-serif;
+  text-align: center;
+  border: black solid 1px;
+  padding: 2%;
+  margin: 1%;
+}
+
+.icons {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  margin: 3% auto;
+}
+
+img {
+  padding-bottom: 3%;
+}
+
+hr {
+  margin: 3% 0;
+}
+
+.p {
+  line-height: 1.3;
+}
