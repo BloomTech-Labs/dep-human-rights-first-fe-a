@@ -69,6 +69,8 @@ export default function FiltersForm() {
       <div className="all-filters">
         <div className="location-filters">
           <Select
+            allowClear
+            showSearch // useful to not have to scroll through 50+ items to find what you're looking for
             onSelect={stateName => dispatch(updateFilters({ stateName }))}
             placeholder="Select a State"
             style={{ width: 150 }}
@@ -81,6 +83,7 @@ export default function FiltersForm() {
           </Select>
           <Search
             placeholder="Zip Code"
+            allowClear
             onSearch={value => dispatch(updateFilters({ zipCode: value }))}
             style={{ width: 150 }}
           />
