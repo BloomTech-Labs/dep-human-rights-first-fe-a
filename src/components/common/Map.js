@@ -21,8 +21,6 @@ const Map = () => {
   let stateJump = false;
   const incidentType = useSelector(state => state.filters.incidents);
 
-  console.log(incidentType);
-
   useEffect(() => {
     // -> showcase our data instantly from the api call
     fetchAPIPoints();
@@ -99,8 +97,6 @@ const Map = () => {
     return yes;
   });
 
-  // console.log(typesString)
-
   // const geojson2 = incidentsDB.data.map((incident, index) => ({
   //   geometry: {
   //     type: 'Point',
@@ -153,28 +149,6 @@ const Map = () => {
       },
     };
   });
-
-  // console.log (geojson3)
-  // console.log(geojson3[0].properties.type.join())
-
-  // our categories should be similar to this:
-
-  // const hydro = ['==', ['get', 'fuel1'], 'Hydro'];
-  // const solar = ['==', ['get', 'fuel1'], 'Solar'];
-  // const wind = ['==', ['get', 'fuel1'], 'Wind'];
-  // const gas = ['==', ['get', 'fuel1'], 'Gas'];
-  // const oil = ['==', ['get', 'fuel1'], 'Oil'];
-  // const others = ['any',
-  //   ['==', ['get', 'fuel1'], 'Cogeneration'],
-  //   ['==', ['get', 'fuel1'], 'Storage'],
-  //   ['==', ['get', 'fuel1'], 'Other'],
-  //   ['==', ['get', 'fuel1'], 'Wave and Tidel'],
-  //   ['==', ['get', 'fuel1'], 'Petcoke'],
-  //   ['==', ['get', 'fuel1'], '']
-  // ];
-
-  // colors to use for the categories
-  // const colors = ['#8dd3c7','#ffffb3','#bebada','#fb8072','#80b1d3','#fdb462','#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5','#ffed6f'];
 
   let hoveredStateId = null;
 
@@ -295,26 +269,21 @@ const Map = () => {
       id: 'clusters',
       type: 'circle',
       source: 'incidents',
-      // filter: ['has', 'point_count'],
-      // new line for improved clusters
       filter: [
         'all',
         // can specify here a specific incident type
         ['==', ['get', 'cluster'], true],
       ],
       paint: {
-        //   * Blue, 20px circles when point count is less than 100
-        //   * Yellow, 30px circles when point count is between 100 and 400
-        //   * Pink, 40px circles when point count is greater than or equal to 400
         'circle-color': 'rgba(0,0,0,.6)',
         'circle-stroke-color': [
           'step',
           ['get', 'point_count'],
-          '#51bbd6',
+          '#51bbd6', //   * Blue, 20px circles when point count is less than 100
           100,
-          '#f1f075',
+          '#f1f075', //   * Yellow, 30px circles when point count is between 100 and 400
           400,
-          '#f28cb1',
+          '#f28cb1', //   * Pink, 40px circles when point count is greater than or equal to 400
         ],
         'circle-stroke-width': 5,
         'circle-radius': ['step', ['get', 'point_count'], 20, 100, 30, 400, 40],
@@ -366,24 +335,6 @@ const Map = () => {
       type: 'symbol',
       source: 'incidents',
       filter: ['!', ['has', 'point_count']],
-      //  need below comments as  reference point for actual api
-
-      // paint: {
-      //     // 'circle-color': '#11b4da',
-      //     // 'circle-radius': 4,
-      //     // 'circle-stroke-width': 1,
-      //     // 'circle-stroke-color': '#fff'
-      //   'circle-radius': 5
-      // }
-      // 'filter': [
-      //     'all',
-      //     // can specify here a specific incident type
-      //     ['!=', ['get', 'cluster'], true]
-      //   ],
-      //   'paint': {
-      //   'circle-color': '#8dd3c7',
-      //   'circle-radius': 5
-      //   }
       layout: {
         visibility: 'visible',
         'icon-image': 'cat', // THIS SHOULD BE A MARKER
@@ -435,8 +386,6 @@ const Map = () => {
       ];
       const link = incident.link1;
 
-      console.log(type);
-
       // if map zoomed out such that multiple copies of the feature are visible, popup appears over the copy being pointed to.
       while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -459,7 +408,6 @@ const Map = () => {
       divElement.appendChild(assignBtn);
 
       assignBtn.addEventListener('click', e => {
-        console.log(type);
         const element = <TwitterPopup id="twitterpop" incident={incident} />;
         ReactDOM.render(element, document.getElementById('hey'));
       });
@@ -484,16 +432,6 @@ const Map = () => {
     map.on('mouseleave', 'unclustered-point', function() {
       map.getCanvas().style.cursor = '';
     });
-
-    // --------incident type filtering
-
-    if (incidentType.softTechnique) {
-      // map.setFilter('unclustered-point', ['==', ['get', 'type'], 'Projectiles'])
-      // map.setFilter('unclustered-point', ['in', ['get', 'type0'], 'Soft'])
-      // map.setFilter('clusters', ['in', ['get', 'type0'], 'Soft'])
-      // map.setFilter('cluster-count', ['in', ['get', 'type0'], 'Soft'])
-      // map.setFilter('unclestered-point-outer', ['==', ['get', 'type'], 'Projectiles'])
-    }
   }); // end of main map.on()
 
   return (
