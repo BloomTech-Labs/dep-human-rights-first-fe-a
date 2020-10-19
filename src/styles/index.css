@@ -272,18 +272,61 @@ a {
   height: 100vh;
   }
 
-#disappear{
+  #disappear{
+    background-color: white;
+  }
+
+/* #disappear{
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10rem 0;
+  justify-content: center; */
+  /* align-items: center; */
+  /* padding: 10rem 0;
   font-size: 2.5rem;
-  
-  text-shadow: 2px 6px 4px rgba(0, 5, 5, 0.534); 
-  box-shadow: 0px 0px 350px 1px rgb(206, 255, 47);
+   */
+  /* text-shadow: 2px 6px 4px rgba(0, 5, 5, 0.534);  */
+  /* box-shadow: 0px 0px 350px 1px rgb(206, 255, 47);
+  top: 0; */
+  /* opacity: .9; */
+  /* height: 100%;
+  background: rgb(80, 76, 76);
+  background-repeat: no-repeat;
 }
 
 #disappear:hover{
   box-shadow: 0px 0px 350px 1px rgb(47, 189, 255);
+  opacity: .9;
 }
 
+#disappear h2{
+  font-size: 7rem;
+  text-shadow: 12px 6px 8px rgba(2, 5, 5, 0.253); 
+  padding-bottom: 1%;
+  font-weight: bolder;
+  background: -webkit-linear-gradient(  rgb(199,82,8),rgb(157,2,8),rgb(157,2,8), rgb(199,82,8), #E8CA46,rgb(157,2,8), rgb(157,2,8), #E8CA46, #E8CA46);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} */
+
+
+.apple-popup .mapboxgl-popup-content {
+  padding-top: 4%;
+  box-shadow: 0px 0px 20px 1px rgba(255, 255, 255, 0.4);
+  /* border-radius: 10px; */
+}
+
+.apple-popup .mapboxgl-popup-close-button{
+  font-size: 1rem;
+  /* border-radius: 15px; */
+  /* border: 1px solid rgb(74,168,255); */
+  background: rgb(74,168,255, .3);
+}
+
+#assignBtn{
+  display: flex;
+  justify-content: flex-end;
+
+}
+
+#assign{
+  /* color: red; */
+}
