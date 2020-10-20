@@ -28,7 +28,7 @@ ReactDOM.render(
 function App() {
   return (
     <Router>
-      {/* <NavBar /> */}
+      <NavBar />
       <Route exact path="/" component={Loading} />
     </Router>
   );

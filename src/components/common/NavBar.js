@@ -1,43 +1,23 @@
 import React from 'react';
-import HRCpic from '../../assets/HRC(2).png';
 import '../../styles/index.css';
-import { Link as LinkTo } from 'react-router-dom';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
+import { Button, Typography } from 'antd';
+
+const { Title } = Typography;
 
 const NavBar = () => {
   return (
-    <div className="nav-div">
-      <LinkTo to="/">
-        <div className="HRClogo">
-          <div className="logo-img-div">
-            <img
-              src={HRCpic}
-              className="logo-img"
-              alt="human-rights-considered-logo"
-            />
-            <h3>
-              Human <br /> Rights <br /> Considered
-            </h3>
-          </div>
-        </div>
-      </LinkTo>
-      <Breadcrumbs aria-label="breadcrumb" className="navigation">
-        <Link
-          href="https://c.humanrightsfirst.dev/#map"
-          className="navigation-content"
-          style={{ textDecoration: 'none', color: 'wheat' }}
-        >
-          View Map
-        </Link>
-        <Link
-          href="https://c.humanrightsfirst.dev/#about"
-          className="navigation-content"
-          style={{ textDecoration: 'none', color: 'wheat' }}
-        >
-          About
-        </Link>
-      </Breadcrumbs>
+    <div className="logo-pane">
+      <div className="company-info">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Ubuntu_logo_copyleft_1.svg/1200px-Ubuntu_logo_copyleft_1.svg.png"
+          alt="Human Rights First logo"
+        />
+        <h2>Human Rights Considered</h2>
+      </div>
+      <div className="user-nav">
+        <Button>Sign In</Button>
+        <Button>Sign Up</Button>
+      </div>
     </div>
   );
 };
