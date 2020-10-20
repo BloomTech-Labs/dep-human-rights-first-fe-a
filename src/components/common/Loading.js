@@ -1,6 +1,6 @@
 import { Flag, People, Map as Mp } from 'react-bootstrap-icons';
 import React, { useState } from 'react';
-import OldMap from './OldMap';
+// import OldMap from './OldMap';
 import Map from '../common/Map';
 import Graph from '../common/Graph';
 import About from '../common/About';
