@@ -320,3 +320,30 @@ a {
 #assign {
   /* color: red; */
 }
+
+/* Logo Pane Styles */
+.logo-pane {
+  display: flex;
+  justify-content: space-between;
+  background-color: #7f9bb3;
+}
+
+.company-info {
+  display: flex;
+  width: 50%;
+  align-items: center;
+}
+
+.company-info img {
+  width: 50px;
+  padding: 1%;
+}
+
+.user-nav {
+  display: flex;
+  width: 10%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1%;
+  margin-right: 20px;
+}
