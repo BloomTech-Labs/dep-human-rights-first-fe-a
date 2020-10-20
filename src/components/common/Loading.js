@@ -3,17 +3,13 @@ import React, { useState } from 'react';
 import OldMap from './OldMap';
 import Map from '../common/Map';
 import Graph from '../common/Graph';
+import About from '../common/About';
 import FiltersForm from './FilterForm';
 import 'antd/dist/antd.css';
 import '../../styles/index.css';
 import { Tabs, Button, Popover } from 'antd';
 
 export const Loading = () => {
-  // const [viewIndex, setViewIndex] = useState(0);
-
-  // const views = ['map', 'graph'];
-  // const otherView = views[views.length - 1 - viewIndex];
-
   const { TabPane } = Tabs;
 
   const openFilters = (
@@ -27,22 +23,6 @@ export const Loading = () => {
     </Popover>
   );
 
-  // <div className="filter">
-  //         <FiltersForm />
-  //       </div>
-
-  // const toggleViewIndex = () => {
-  //   const mapContainer = document.querySelector('#map');
-
-  //   viewIndex === 0 ? setViewIndex(1) : setViewIndex(0);
-
-  //   if (mapContainer.style.display === 'block') {
-  //     mapContainer.style.display = 'none';
-  //   } else {
-  //     mapContainer.style.display = 'block';
-  //   }
-  // };
-
   return (
     <div>
       <main>
@@ -54,13 +34,11 @@ export const Loading = () => {
         >
           <TabPane tab="Map" key="1">
             <div id="map" style={{ display: 'block' }}>
-              <Map />
+              {<Map />}
             </div>
           </TabPane>
           <TabPane tab="Graph" key="2">
-            <div id="graph">
-              <Graph />
-            </div>
+            <div id="graph">{<Graph />}</div>
           </TabPane>
           <TabPane tab="About" key="3">
             <div className="last-section">
@@ -123,16 +101,6 @@ export const Loading = () => {
             </div>
           </TabPane>
         </Tabs>
-        {/* <button
-          onClick={toggleViewIndex}
-          style={{ zIndex: 20, position: 'relative' }}
-        >
-          {otherView}
-        </button>
-        <div id="map" style={{ display: 'block' }}>
-          {views[viewIndex] === 'map' && <Map />}
-        </div>
-        <div id="graph">{views[viewIndex] === 'graph' && <Graph />}</div> */}
       </main>
       <footer className="page-footer">
         <small>© Copyright 2020. All rights reserved.</small>
