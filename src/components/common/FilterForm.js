@@ -13,8 +13,8 @@ const { Search } = Input;
 export default function FiltersForm() {
   const initialIncidents = {
     energyDevices: true,
-    softTechnique: true,
-    hardTechnique: true,
+    soft: true,
+    hard: true,
     projectiles: true,
     chemical: true,
     presence: true,
@@ -29,8 +29,8 @@ export default function FiltersForm() {
 
   const incidents = [
     'Energy Devices',
-    'Soft Technique',
-    'Hard Technique',
+    'Soft',
+    'Hard',
     'Projectiles',
     'Chemical',
     'Presence',

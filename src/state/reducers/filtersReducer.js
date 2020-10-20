@@ -2,8 +2,8 @@ import { UPDATE_FILTERS } from '../actions/';
 
 const initialIncidents = {
   energyDevices: true,
-  softTechnique: true,
-  hardTechnique: true,
+  soft: true,
+  hard: true,
   projectiles: true,
   chemical: true,
   presence: true,

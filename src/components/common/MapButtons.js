@@ -114,8 +114,8 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
                   map.scrollZoom.disable();
                   scrollEnabled = false;
                 } else {
-                  map.scrollZoom.enable();
-                  scrollEnabled = true;
+                  map.scrollZoom.disable();
+                  scrollEnabled = false;
 
                   setTimeout(() => {
                     document.getElementById('disappear').style.transition =
