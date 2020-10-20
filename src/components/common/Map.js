@@ -9,9 +9,10 @@ import MapButtons from './MapButtons';
 import incidentsDB from '../../database/data2.json';
 import TwitterPopup from './TwitterPopup';
 import ReactDOM from 'react-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import myImg from '../../assets/police-badge.png';
 import myImg2 from '../../assets/police-helmet.png';
+import { fetchIncidents } from '../../state/actions';
 
 const Map = () => {
   // using a NYC API to get dummy data for display on the map
@@ -19,32 +20,18 @@ const Map = () => {
   const [locations, setLocations] = useState([]);
   let scrollEnabled = false; // toggles scroll zoom -- can't use useState because it rerenders the map
   let stateJump = false;
-  const incidentType = useSelector(state => state.filters.incidents);
+  const [incidentType, events] = useSelector(state => [
+    state.filters.incidents,
+    state.fetchIncidentsReducer.incidents,
+  ]);
   const [updatedIncidents, setUpdatedIncidents] = useState([]);
-
-  // const [updatedIncidents, setUpdatedIncidents] = useState([geojson])
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // -> showcase our data instantly from the api call
-    fetchAPIPoints();
-  }, []);
+    dispatch(fetchIncidents());
+  }, [dispatch]);
 
-  // temporary fuction we will not use with our APi --> we dont want to get rid of any of our points
-  const filterFreeWifi = hotspots => {
-    return hotspots.filter(spot => {
-      return spot.type === 'Free';
-    });
-  };
-  const fetchAPIPoints = () => {
-    axios
-      // .get(`https://data.cityofnewyork.us/resource/yjub-udmw.json`)
-      .get(`https://labs27-d-hrf-api.herokuapp.com/incidents/dummy`)
-      .then(res => {
-        // const freeWifi = filterFreeWifi(res.data);
-        // setLocations(freeWifi);
-        setLocations(res.data);
-      });
-  };
   // ----------- map
 
   const bounds = [
@@ -81,7 +68,7 @@ const Map = () => {
 
   // --------- converting json to geojson
 
-  const geojson = locations.map(incident => ({
+  const geojson = events.map(incident => ({
     geometry: {
       type: 'Point',
       coordinates: [
@@ -248,8 +235,7 @@ const Map = () => {
     map.addSource('incidents', {
       type: 'geojson',
       data: { features: updatedIncidents },
-      // data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson', // --> sample data
-      // data: { features: geojson2 },
+      // data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson', // --> sample data (urls can be used)
       cluster: true,
       clusterMaxZoom: 14, // Max zoom to cluster points on
       clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
