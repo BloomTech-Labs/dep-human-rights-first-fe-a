@@ -79,14 +79,51 @@ const Graph = () => {
 
   const options = {
     responsive: true,
+    legend: {
+      display: true,
+      labels: {
+        fontSize: 16,
+        padding: 32,
+      },
+    },
+    scales: {
+      yAxes: [
+        {
+          stacked: false,
+          beginAtZero: true,
+          scaleLabel: {
+            fontSize: 20,
+            lineHeight: 2,
+            display: true,
+            labelString: '# of incidents',
+          },
+          ticks: {
+            autoSkip: false,
+          },
+        },
+      ],
+      xAxes: [
+        {
+          stacked: false,
+          beginAtZero: true,
+          scaleLabel: {
+            fontSize: 20,
+            lineHeight: 2,
+            display: true,
+            labelString: 'Timeline',
+          },
+          ticks: {
+            autoSkip: false,
+          },
+        },
+      ],
+    },
   };
 
   return (
     <div
       style={{
         backgroundColor: '#191A1A',
-        width: '80%',
-        height: '80vh',
         margin: '0 auto',
       }}
     >
