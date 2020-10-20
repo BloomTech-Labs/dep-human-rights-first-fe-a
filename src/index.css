@@ -1,8 +1,136 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
 
-body {
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
   background: #eee;
   color: #111;
   font-family: 'Playfair Display', serif;
@@ -10,12 +138,12 @@ body {
   flex-direction: column;
 }
 
-body * {
+/* body * {
   transition: all 0.3s ease-in-out;
-}
+} */
 
 /*Main Content*/
-main {
+/* main {
   position: relative;
   z-index: 3;
   overflow: hidden;
@@ -39,9 +167,9 @@ main section h2 {
 
 main section div {
   position: relative;
-}
+} */
 
-.bottom {
+/* .bottom {
   margin: 1.25rem 0;
   display: flex;
   flex-direction: column;
@@ -68,7 +196,7 @@ main section div {
   align-items: center;
   justify-content: space-evenly;
   /* margin-top: 5%; */
-}
+/* }
 
 .considered {
   font-size: 1.25rem;
@@ -86,7 +214,7 @@ main section div {
   margin-top: 1rem;
 }
 
-/* middle content */
+middle content
 
 .middle {
   display: flex;
@@ -120,11 +248,11 @@ main section div {
 
 .last-section {
   background-color: rgb(255, 253, 247);
-}
+} */
 
 /* popup box */
 
-.popUpContent {
+/* .popUpContent {
   overflow: scroll;
   max-width: 12.5rem;
   max-height: 25rem;
@@ -137,7 +265,7 @@ main section div {
 }
 
 /* full screen setting */
-.wrapper {
+/* .wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -149,10 +277,10 @@ main section div {
 
 .page-main {
   flex-grow: 1;
-}
+} */
 
 /* header */
-.title-content {
+/* .title-content {
   margin-top: 3%;
   margin-left: 2%;
   background-color: rgba(24, 17, 6, 0.386);
@@ -174,9 +302,9 @@ main section div {
 .banner-title {
   font-size: 2.5rem;
   color: rgb(242, 215, 198);
-}
+} */
 
-.banner-second-title {
+/* .banner-second-title {
   font-size: 2.5rem;
   color: rgb(249, 168, 143);
 }
@@ -185,10 +313,10 @@ main section div {
   font-size: 1rem;
   margin-top: 1%;
   color: rgb(222, 208, 199);
-}
+} */
 
 /* next page button */
-.next-page {
+/* .next-page {
   position: absolute;
   bottom: 1rem;
   right: 50%;
@@ -206,9 +334,11 @@ main section div {
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
+*/
+*/
 
 /* variables */
-:root {
+/* :root {
   --main-white-color: white;
   --main-brown-color: #000000;
 }
@@ -283,7 +413,7 @@ main section div {
   .banner-subtitle {
     font-size: 1rem;
   }
-}
+} */
 
 /* view-map button and animation */
 

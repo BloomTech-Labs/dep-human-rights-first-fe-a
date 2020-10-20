@@ -64,7 +64,7 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
           zIndex: 10,
           position: 'absolute',
           width: '200px',
-          top: '6%',
+          top: '10%',
           display: 'none',
           opacity: 0,
         }}
@@ -76,6 +76,50 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
         }}
       >
         Reset Map View
+      </Button>
+
+      <Button
+        type="primary"
+        id="showBtn"
+        style={{
+          zIndex: 10,
+          position: 'absolute',
+          width: '200px',
+          display: 'none',
+        }}
+        onClick={() => {
+          const hiddenButtons = document.getElementsByClassName('appear');
+          for (let i = 0; i < hiddenButtons.length; i++) {
+            hiddenButtons[i].style.display = 'block';
+          }
+          document.getElementById('showBtn').style.display = 'none';
+          document.getElementById('hideBtn').style.display = 'block';
+        }}
+      >
+        Show Map Options 🔽
+      </Button>
+
+      <Button
+        type="primary"
+        id="hideBtn"
+        style={{
+          zIndex: 10,
+          position: 'absolute',
+          width: '200px',
+          top: '15%',
+          display: 'none',
+          opacity: 0,
+        }}
+        onClick={() => {
+          const hiddenButtons = document.getElementsByClassName('appear');
+          for (let i = 0; i < hiddenButtons.length; i++) {
+            hiddenButtons[i].style.display = 'none';
+          }
+          document.getElementById('showBtn').style.display = 'block';
+          document.getElementById('hideBtn').style.display = 'none';
+        }}
+      >
+        Hide Map Options 🔼
       </Button>
 
       <div id="disappear">
@@ -151,52 +195,7 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
             </Button>
           }
         />
-        ,
       </div>
-
-      <Button
-        type="primary"
-        id="showBtn"
-        style={{
-          zIndex: 10,
-          position: 'absolute',
-          width: '200px',
-          display: 'none',
-        }}
-        onClick={() => {
-          const hiddenButtons = document.getElementsByClassName('appear');
-          for (let i = 0; i < hiddenButtons.length; i++) {
-            hiddenButtons[i].style.display = 'block';
-          }
-          document.getElementById('showBtn').style.display = 'none';
-          document.getElementById('hideBtn').style.display = 'block';
-        }}
-      >
-        Show Map Options 🔽
-      </Button>
-
-      <Button
-        type="primary"
-        id="hideBtn"
-        style={{
-          zIndex: 10,
-          position: 'absolute',
-          width: '200px',
-          top: '9%',
-          display: 'none',
-          opacity: 0,
-        }}
-        onClick={() => {
-          const hiddenButtons = document.getElementsByClassName('appear');
-          for (let i = 0; i < hiddenButtons.length; i++) {
-            hiddenButtons[i].style.display = 'none';
-          }
-          document.getElementById('showBtn').style.display = 'block';
-          document.getElementById('hideBtn').style.display = 'none';
-        }}
-      >
-        Hide Map Options 🔼
-      </Button>
     </div>
   );
 };

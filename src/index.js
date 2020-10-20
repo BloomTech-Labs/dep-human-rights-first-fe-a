@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import './index.css';
 import 'antd/dist/antd.less';
 
 import reducer from './state/reducers/';
