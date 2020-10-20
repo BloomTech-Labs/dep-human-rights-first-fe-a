@@ -64,12 +64,6 @@ export default function FiltersForm() {
 
   return (
     <div className="filter-box">
-      <div className="filter-header">
-        <Title level={4}>Filter Your Results</Title>
-        <Button type="link" onClick={() => console.log('reset filters')}>
-          Reset Filters
-        </Button>
-      </div>
       <div className="search-bars">
         <RangePicker />
         <Select
@@ -89,6 +83,9 @@ export default function FiltersForm() {
           onSearch={value => dispatch(updateFilters({ zipCode: value }))}
           style={{ width: 150 }}
         />
+        <Button type="link" onClick={() => console.log('reset filters')}>
+          Reset Filters
+        </Button>
       </div>
       <div className="filter-types">
         <div className="incident-filters">
