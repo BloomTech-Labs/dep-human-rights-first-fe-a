@@ -32,7 +32,9 @@ const TwitterPopup = ({ incident }) => {
         onCancel={hideModal}
         footer={
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div>{incident['date_text']}</div> <p>{types}</p>
+            <div>{incident['date_text']}</div>
+            {/* <p>{types}</p> */}
+            <p>{incident.type}</p>
           </div>
         }
         visible={true}

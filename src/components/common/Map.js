@@ -9,37 +9,27 @@ import MapButtons from './MapButtons';
 import incidentsDB from '../../database/data2.json';
 import TwitterPopup from './TwitterPopup';
 import ReactDOM from 'react-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import myImg from '../../assets/police-badge.png';
 import myImg2 from '../../assets/police-helmet.png';
+import { fetchIncidents } from '../../state/actions';
 
 const Map = () => {
   // using a NYC API to get dummy data for display on the map
   // this will be replaced with our project's backend once it's ready
-  const [apiMarkerTest, setApiMarkerTest] = useState([]);
   let scrollEnabled = false; // toggles scroll zoom -- can't use useState because it rerenders the map
   let stateJump = false;
-  const incidentType = useSelector(state => state.filters.incidents);
+  const [incidentType, events] = useSelector(state => [
+    state.filters.incidents,
+    state.fetchIncidentsReducer.incidents,
+  ]);
+  const [updatedIncidents, setUpdatedIncidents] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // -> showcase our data instantly from the api call
-    fetchAPIPoints();
-  }, []);
-
-  // temporary fuction we will not use with our APi --> we dont want to get rid of any of our points
-  const filterFreeWifi = hotspots => {
-    return hotspots.filter(spot => {
-      return spot.type === 'Free';
-    });
-  };
-  const fetchAPIPoints = () => {
-    axios
-      .get(`https://data.cityofnewyork.us/resource/yjub-udmw.json`)
-      .then(res => {
-        const freeWifi = filterFreeWifi(res.data);
-        setApiMarkerTest(freeWifi);
-      });
-  };
+    dispatch(fetchIncidents());
+  }, [dispatch]);
 
   // ----------- map
 
@@ -77,79 +67,66 @@ const Map = () => {
 
   // --------- converting json to geojson
 
-  const geojson = apiMarkerTest.map(incident => ({
+  const geojson = events.map(incident => ({
     geometry: {
       type: 'Point',
       coordinates: [
-        parseFloat(incident.longitude),
-        parseFloat(incident.latitude),
+        parseFloat(incident.LONGITUDE),
+        parseFloat(incident.LATITUDE),
       ],
     },
     type: 'Feature',
-    properties: {},
+    properties: {
+      id: incident.id,
+      date_text: incident['date_text'],
+      title: incident.text,
+      type: incident['tags_str'],
+      link1: incident.Link1,
+      link2: incident.Link2,
+    },
   }));
 
-  const typesString = incidentsDB.data.map((incident, index) => {
-    const arr = incident['tags_str'].split(',');
-    const yes = arr.map((item, index) => {
-      return `type${index}:${item}`;
+  const geojson2 = incidentsDB.data.map(incident => ({
+    geometry: {
+      type: 'Point',
+      coordinates: [
+        parseFloat(incident.LONGITUDE),
+        parseFloat(incident.LATITUDE),
+      ],
+    },
+    type: 'Feature',
+    properties: {
+      id: incident.id,
+      date_text: incident['date_text'],
+      title: incident.text,
+      type: incident['tags_str'],
+      link1: incident.Link1,
+      link2: incident.Link2,
+    },
+  }));
+
+  //  --- filtering data based off of brutality type
+  function containsAny(source, target) {
+    let result = source.filter(function(item) {
+      return target.indexOf(item) > -1;
     });
-    return yes;
+    return result.length > 0;
+  }
+
+  let filteredTypes = Object.keys(incidentType).filter(type => {
+    return incidentType[type] === true;
   });
-
-  // const geojson2 = incidentsDB.data.map((incident, index) => ({
-  //   geometry: {
-  //     type: 'Point',
-  //     coordinates: [
-  //       parseFloat(incident.LONGITUDE),
-  //       parseFloat(incident.LATITUDE),
-  //     ],
-  //   },
-  //   type: 'Feature',
-  //   properties: {
-  //     date_text: incident['date_text'],
-  //     title: incident.text,
-  //     type: incident['tags_str'].split(','),
-  //     // type: typesString[index],
-  //     link1: incident.Link1,
-  //     link2: incident.Link2,
-  //   },
-  // })
-  // );
-
-  const geojson2 = incidentsDB.data.map((incident, index) => {
-    const arr = incident['tags_str'].split(',');
-    const types = arr.map((item, i) => {
-      // const obj = JSON.parse(`{"type${i}":"${item}"}`)
-      // return `type${i}:${item}`
-      return { [i]: item };
-      // return obj
+  useEffect(() => {
+    const filteredIncidents = geojson2.filter(incident => {
+      let incidents = incident.properties.type.toLowerCase().split(',');
+      return containsAny(incidents, filteredTypes);
     });
-    return {
-      geometry: {
-        type: 'Point',
-        coordinates: [
-          parseFloat(incident.LONGITUDE),
-          parseFloat(incident.LATITUDE),
-        ],
-      },
-      type: 'Feature',
-      properties: {
-        date_text: incident['date_text'],
-        title: incident.text,
-        [types[0] ? 'type0' : null]: types[0] ? types[0][0] : null,
-        [types[1] ? 'type1' : null]: types[1] ? types[1][1] : null,
-        [types[2] ? 'type2' : null]: types[2] ? types[2][2] : null,
-        [types[3] ? 'type3' : null]: types[3] ? types[3][3] : null,
-        [types[4] ? 'type4' : null]: types[4] ? types[4][4] : null,
-        [types[5] ? 'type5' : null]: types[5] ? types[5][5] : null,
-        [types[6] ? 'type6' : null]: types[6] ? types[6][6] : null,
-        link1: incident.Link1,
-        link2: incident.Link2,
-      },
-    };
-  });
 
+    setUpdatedIncidents(filteredIncidents);
+  }, [incidentType]);
+  console.log(updatedIncidents);
+
+  // --- initiating set up for when map loads
   let hoveredStateId = null;
 
   map.on('load', e => {
@@ -256,9 +233,8 @@ const Map = () => {
     // source in geojson format: list of all locations
     map.addSource('incidents', {
       type: 'geojson',
-      // data: { features: geojson },
-      // data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson', // --> sample data
-      data: { features: geojson2 },
+      data: { features: updatedIncidents },
+      // data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson', // --> sample data (urls can be used)
       cluster: true,
       clusterMaxZoom: 14, // Max zoom to cluster points on
       clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
@@ -374,16 +350,7 @@ const Map = () => {
       const incident = e.features[0].properties;
       const date = incident['date_text'];
       const title = incident.title;
-      // const type = incident.type
-      const type = [
-        incident.type0,
-        incident.type1,
-        incident.type2,
-        incident.type3,
-        incident.type4,
-        incident.type5,
-        incident.type6,
-      ];
+      const type = incident.type;
       const link = incident.link1;
 
       // if map zoomed out such that multiple copies of the feature are visible, popup appears over the copy being pointed to.
