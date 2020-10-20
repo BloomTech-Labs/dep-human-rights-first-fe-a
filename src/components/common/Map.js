@@ -45,7 +45,7 @@ const Map = () => {
     // style: "mapbox://styles/martaalicja1/ckfx37li7117819paqxl1cp6x", // stylesheet location
     style: 'mapbox://styles/mapbox/dark-v10',
     center: [-95.712891, 37.09024], // starting position [lng, lat]
-    zoom: 4, // starting zoom
+    zoom: 2, // starting zoom
     maxBounds: bounds, // Sets bounds as max
   });
 
@@ -411,7 +411,7 @@ const Map = () => {
           zIndex: 10,
           position: 'absolute',
           width: '200px',
-          top: '3%',
+          top: '5%',
           display: 'none',
           opacity: 0,
         }}
