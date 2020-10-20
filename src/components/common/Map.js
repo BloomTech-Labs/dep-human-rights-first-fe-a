@@ -17,7 +17,6 @@ import { fetchIncidents } from '../../state/actions';
 const Map = () => {
   // using a NYC API to get dummy data for display on the map
   // this will be replaced with our project's backend once it's ready
-  const [locations, setLocations] = useState([]);
   let scrollEnabled = false; // toggles scroll zoom -- can't use useState because it rerenders the map
   let stateJump = false;
   const [incidentType, events] = useSelector(state => [
