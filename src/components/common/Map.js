@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import * as mapboxgl from 'mapbox-gl';
@@ -42,8 +41,7 @@ const Map = () => {
 
   const map = new mapboxgl.Map({
     container: 'map',
-    // style: "mapbox://styles/martaalicja1/ckfx37li7117819paqxl1cp6x", // stylesheet location
-    style: 'mapbox://styles/mapbox/dark-v10',
+    style: 'mapbox://styles/mapbox/dark-v10', // stylesheet location
     center: [-95.712891, 37.09024], // starting position [lng, lat]
     zoom: 2, // starting zoom
     maxBounds: bounds, // Sets bounds as max
@@ -118,7 +116,7 @@ const Map = () => {
   });
   useEffect(() => {
     const filteredIncidents = geojson2.filter(incident => {
-      let incidents = incident.properties.type.toLowerCase().split(',');
+      let incidents = incident.properties.type.toLowerCase().split(', ');
       return containsAny(incidents, filteredTypes);
     });
 
@@ -411,7 +409,7 @@ const Map = () => {
           zIndex: 10,
           position: 'absolute',
           width: '200px',
-          top: '5%',
+          marginTop: '34px',
           display: 'none',
           opacity: 0,
         }}
