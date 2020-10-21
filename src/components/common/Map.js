@@ -116,7 +116,7 @@ const Map = () => {
   });
   useEffect(() => {
     const filteredIncidents = geojson2.filter(incident => {
-      let incidents = incident.properties.type.toLowerCase().split(',');
+      let incidents = incident.properties.type.toLowerCase().split(', ');
       return containsAny(incidents, filteredTypes);
     });
 
