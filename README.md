@@ -18,7 +18,7 @@
 - Graph: 
     - timelime view of number of incidents over the course of a year (data dates range) 
     - ability to filter out data by type of brutality used
-- Filter `(currenly applying just for the map)`: 
+- Filter `(currently applying just for the map)`: 
     - date range implemented `(not functional)`
     - reset filters `(not functional)`
     - select state dropdown or search state by typing(selected state can be removed with one click on the x  button on the right afterwards): zooms onto the selected state
@@ -95,6 +95,8 @@
 - ability to reset filters
 - ability to apply and filter by date range
 - ability to filter by source type
-- prevent map refresh/reload when filtering data by incident type
+- prevent map refresh/reload when filtering data by incident type:
+    - instead of state or global variables for the filter function, more research can be done on filtering layers inside of map.addLayer() cunctions using filter functions mapbox has
+    - setting filters is also an options:  https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setfilter
 - make filter for functional with the Graph
     - add more options to the Graph like filtering by state or zipcode or displaying data based off of date range
