@@ -96,7 +96,7 @@
 - ability to apply and filter by date range
 - ability to filter by source type
 - prevent map refresh/reload when filtering data by incident type:
-    - instead of state or global variables for the filter function, more research can be done on filtering layers inside of map.addLayer() cunctions using filter functions mapbox has
+    - instead of state or global variables for the filter function, more research can be done on filtering layers inside of map.addLayer() functions using filter functions mapbox has
     - setting filters is also an options:  https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setfilter
 - make filter for functional with the Graph
     - add more options to the Graph like filtering by state or zipcode or displaying data based off of date range
