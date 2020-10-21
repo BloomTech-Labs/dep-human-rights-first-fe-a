@@ -125,6 +125,7 @@ const Graph = () => {
       style={{
         backgroundColor: '#191A1A',
         margin: '0 auto',
+        height: '80vh',
       }}
     >
       <Line data={data} options={options} />
