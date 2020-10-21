@@ -285,7 +285,8 @@ a {
 .logo-pane {
   display: flex;
   justify-content: space-between;
-  background-color: #7f9bb3;
+  background-color: #003767;
+  width: 100%;
 }
 
 .company-info {
@@ -295,20 +296,31 @@ a {
 }
 
 .company-info img {
-  width: 50px;
-  padding: 1%;
+  width: 60px;
+  padding: 6px;
 }
 
 .user-nav {
   display: flex;
-  width: 10%;
+  width: 15%;
   justify-content: space-between;
   align-items: center;
   padding: 1%;
-  margin-right: 20px;
+}
+
+.company-info h2 {
+  margin: 0;
+  color: #f4ebe1;
+  font-size: 2rem;
+  padding-left: 12px;
+  letter-spacing: 1.1px;
+}
+
+.user-nav button {
+  width: 100px;
+  background-color: #f4ebe1;
 }
 
 .page-footer {
   text-align: center;
 }
-

@@ -1,8 +1,5 @@
 import React from 'react';
 import '../../styles/index.css';
-import { Button, Typography } from 'antd';
-
-const { Title } = Typography;
 
 const NavBar = () => {
   return (
@@ -15,8 +12,8 @@ const NavBar = () => {
         <h2 style={{ margin: 0 }}>Human Rights First</h2>
       </div>
       <div className="user-nav">
-        <Button>Sign In</Button>
-        <Button>Sign Up</Button>
+        <button>Sign In</button>
+        <button>Sign Up</button>
       </div>
     </div>
   );
