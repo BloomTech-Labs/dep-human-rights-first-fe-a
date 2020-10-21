@@ -64,14 +64,14 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
           zIndex: 10,
           position: 'absolute',
           width: '200px',
-          top: '10%',
+          marginTop: '68px',
           display: 'none',
           opacity: 0,
         }}
         onClick={() => {
           map.jumpTo({
             center: [-95.712891, 37.09024],
-            zoom: 4,
+            zoom: 2,
           });
         }}
       >
@@ -106,7 +106,7 @@ const MapButtons = ({ scrollEnabled, map, usZips }) => {
           zIndex: 10,
           position: 'absolute',
           width: '200px',
-          top: '15%',
+          marginTop: '102px',
           display: 'none',
           opacity: 0,
         }}
