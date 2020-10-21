@@ -1,4 +1,3 @@
-import { Flag, People, Map as Mp } from 'react-bootstrap-icons';
 import React, { useState } from 'react';
 // import OldMap from './OldMap';
 import Map from '../common/Map';
@@ -37,7 +36,7 @@ export const Loading = () => {
               {<Map />}
             </div>
           </TabPane>
-          <TabPane tab="Graph" key="2">
+          <TabPane tab="Graph" key="2" style={{ backgroundColor: '#191a1a' }}>
             <div id="graph">{<Graph />}</div>
           </TabPane>
           <TabPane tab="About" key="3">
