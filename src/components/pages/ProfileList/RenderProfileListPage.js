@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+//use as scafold to built out map data
+
 const RenderProfileListPage = props => (
   <div>
     <p>

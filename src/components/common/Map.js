@@ -37,7 +37,9 @@ const Map = () => {
     [-64.6875, 50.064192],
   ];
 
-  mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
+  // mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
+  mapboxgl.accessToken =
+    'pk.eyJ1IjoiYW50b25pb21iIiwiYSI6ImNrZ3YxbHlucjFwNWwyenIzbWx5d2IwY2oifQ.-M08oWTnqbx0K5hS4DtVrQ';
 
   const map = new mapboxgl.Map({
     container: 'map',

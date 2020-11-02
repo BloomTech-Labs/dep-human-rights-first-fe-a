@@ -11,6 +11,8 @@ import { Loading } from './components/common/Loading';
 import NavBar from './components/common/NavBar';
 import thunk from 'redux-thunk';
 
+// import Page from './components/pages/ProfileList'  <----
+
 const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
