@@ -1,11 +1,11 @@
 import React from 'react';
-import './About.css';
+import './About.less';
 import { Typography } from 'antd';
 import { Flag, People, Map } from 'react-bootstrap-icons';
 
 const { Title, Paragraph } = Typography;
 
-export default function About() {
+const About = () => {
   return (
     <div className="about">
       <Title level={1} style={{ color: '#205488' }} className="about-title">
@@ -57,4 +57,6 @@ export default function About() {
       </div>
     </div>
   );
-}
+};
+
+export default About;
