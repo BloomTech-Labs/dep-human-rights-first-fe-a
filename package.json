@@ -41,6 +41,7 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.1",
     "supercluster": "^7.1.0",
+    "uikit": "^3.5.9",
     "us-zips": "^4.0.2",
     "use-supercluster": "^0.2.8",
     "yup": "^0.29.3"

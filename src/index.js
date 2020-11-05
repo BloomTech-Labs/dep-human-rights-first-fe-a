@@ -1,3 +1,8 @@
+// UIKit
+import '../node_modules/uikit/dist/css/uikit.min.css';
+import '../node_modules/uikit/dist/js/uikit.min.js';
+import '../node_modules/uikit/dist/js/uikit-icons.min.js';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -8,7 +13,6 @@ import 'antd/dist/antd.less';
 
 import reducer from './state/reducers/';
 import { Loading } from './components/common/Loading';
-import NavBar from './components/common/NavBar';
 import thunk from 'redux-thunk';
 
 // import Page from './components/pages/ProfileList'  <----
@@ -29,7 +33,6 @@ ReactDOM.render(
 function App() {
   return (
     <Router>
-      <NavBar />
       <Route exact path="/" component={Loading} />
     </Router>
   );
