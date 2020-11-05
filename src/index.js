@@ -9,8 +9,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import 'antd/dist/antd.less';
-
 import reducer from './state/reducers/';
 import { Loading } from './components/common/Loading';
 import thunk from 'redux-thunk';

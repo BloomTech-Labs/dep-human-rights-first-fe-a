@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Map from '../common/Map';
 import Stats from '../pages/Stats';
 import About from '../pages/About';
-import FiltersForm from './FilterForm';
 import 'antd/dist/antd.css';
 import '../../styles/index.css';
 import { Tabs, Button, Popover } from 'antd';
@@ -11,26 +10,10 @@ import { Tabs, Button, Popover } from 'antd';
 export const Loading = () => {
   const { TabPane } = Tabs;
 
-  const openFilters = (
-    <Popover
-      placement="bottomRight"
-      title={<span>Filter Your Results</span>}
-      content={<FiltersForm />}
-      trigger="click"
-    >
-      <Button type="link">Open Filters</Button>
-    </Popover>
-  );
-
   return (
     <div>
       <main>
-        <Tabs
-          defaultActiveKey="1"
-          type="card"
-          size="large"
-          tabBarExtraContent={openFilters}
-        >
+        <Tabs defaultActiveKey="1" type="card" size="large">
           <TabPane tab="Map" key="1">
             <div id="map" style={{ display: 'block' }}>
               {<Map />}
