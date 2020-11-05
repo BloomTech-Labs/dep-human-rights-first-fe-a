@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import OldMap from './OldMap';
 import Map from '../common/Map';
 import Stats from '../pages/Stats';
 import About from '../pages/About';
