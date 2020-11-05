@@ -1,3 +1,8 @@
+// UIKit
+import '../node_modules/uikit/dist/css/uikit.min.css';
+import '../node_modules/uikit/dist/js/uikit.min.js';
+import '../node_modules/uikit/dist/js/uikit-icons.min.js';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
