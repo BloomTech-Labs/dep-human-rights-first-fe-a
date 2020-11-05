@@ -3,100 +3,85 @@
 ## Description 👇
 > **Disclaimer:** This application is currently in Alpha (as of Oct 20, 2020) and is not ready for production. Please use at your own risk as things will change almost daily.
 
-- Our team is developing an interactive map that identifies potential instances of police use of force across the United States of America for [Human Rights First](https://www.humanrightsfirst.org/), an independent advocacy and action organization. We are also developing additional graphics to track and display police brutality trends.
-- An application that takes information from data provided by the data science team collecting relevant incidents and data from Twitter, Reddit, and police agencies to display it on the map.
-- This app will display various incidents of police use of force on a map that can be filtered by  type of brutality and location with zipcodes and states.
+- The team is developing an interactive map that identifies potential instances of police use of force across the United States of America for [Human Rights First](https://www.humanrightsfirst.org/), an independent advocacy and action organization. 
+- The application takes information provided by the data science team, collecting relevant incidents and data from Twitter, Reddit, and police agencies, and displays it on a map.
+- The interactive map will display various incidents of police force, that can be filtered by type of brutality and location. 
+- A timeline graph will display the range of incidents that occurred in a location in a given date span. 
+
+## Project Overview
+
+1️⃣ [Trello Board](https://trello.com/b/vUsfsVej/team-a-labs28)
+
+1️⃣ [Full Github Project](https://github.com/orgs/Lambda-School-Labs/teams/labs-28-human-rights-first-a/repositories)
+
+1️⃣ Preliminary User Flows![UX Design files](https://i.ibb.co/Xt1sw81/Human-Rights-First-1-25x.png) 
+
 
 ## Deployed App
-- https://d.humanrightsfirst.dev/
-<img src='./src/assets/hrf.jpg'>
+> ⚙Under Construction⚙
 
 ## Features
-
-- a dynamic navigation bar with tabs displaying either the Map, the Graph, or the About page as well as a popup with the Filter form
-- Sign in/Sign out options `(not functional)`
-- Graph: 
-    - timelime view of number of incidents over the course of a year (data dates range) 
-    - ability to filter out data by type of brutality used
-- Filter `(currently applying just for the map)`: 
-    - date range implemented `(not functional)`
-    - reset filters `(not functional)`
-    - select state dropdown or search state by typing(selected state can be removed with one click on the x  button on the right afterwards): zooms onto the selected state
-    - search by zip-code (looked up zipcode can be removed with the x  button on the right of it afterwards): zooms onto a zipcode location
-    - filter incidents by type of brutality
-    - filter incidents by type of source like Twitter, Reddit, etc `(not functional)`
-- Map:
-    - graphic content warning screen 
-    - Control panel:
-        - ability to navigate and zoom on to user's location
-        - zoom in/out the map 
-        - reset bearing to north
-    - dynamic Hide/Show Map Options menu:
-        - enable/disable zooming on the map with mouse scroll wheel 
-        - enable/disable fast travel states: turns on a hover option for each screen and zooms onto the highlighted state when clicked 
-        - reset map view to the original view
-
-
+- A navigation/header displaying the map, the graph, or the about page. 
+- Map: 
+	- Displays incidents on a country, state and city level
+	- A list of states will allow the user to quickly focus on a region
+	- Allows filtering by type of force `(not functional)`
+	- Allows filtering by source `(not functional)`
+	- Allows user to reset map filters `(not functional)`
+- Graph/Timeline: 
+	- Displays the number of incidents per month for a given location `(not functional)`
+	- Initially displays the number of incidents in the data set per month for the last six months `(not functional)`
+	- Dropdown month ranges will allow the user to change the timeline `(not functional)`
 
 ## Requirements
 
-- [Labs Engineering Standard requirements found here](https://www.notion.so/Human-Rights-First-Roadmap-Team-Kevin-c53ed8e80b0e4584aba47abee5753591)
+- [Labs Engineering Standard requirements found here](https://www.notion.so/Human-Rights-First-Roadmap-Labs-28-4725bc357588498587902fed9d9b78c5)
 
-### Environment variable
-
-- `REACT_APP_MAPBOX_TOKEN` Mapbox access tokens (check `https://docs.mapbox.com/help/how-mapbox-works/access-tokens/`)
-> the token can be found on the previous team's deployment info page or recreated on mapbox studio
+### Environment variables
 
 ## Components
 
-- Loading Page
-- NavBar
-- Filter Form
-- Map
-- Graph
-- About
-
-
+- Header 
+- UserProfile
+- Map 
+- Stats
+- Footer
 
 ## Styling Our App
 - `CSS`
-- `AntD`
+- `UIKit`
 
 ## Data Visualization 
-`MapBox` - https://docs.mapbox.com :
-- using mapboxgl approach
+- `AMcharts` [Docs](https://www.amcharts.com/docs/v4/)
 
 ## The Team
-- [Hira Khan](https://github.com/Hira63S)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Hira63S)   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/hira-shahid-991b1583/) - Team Project Lead
+- [Jean-Pierre Fraga ](https://github.com/JeanFraga)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/JeanFraga)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jeanfraga/) - Team Project Lead
 
-- [Cedric Winbush](https://github.com/caw442000)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/caw442000)   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cedricwinbush/) - Team Project Lead
+- [Jessica Duell](https://github.com/jduell12)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jduell12)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jessicaduell/)   - Back End Engineer
 
-- [Virginia Davenport](https://github.com/virginia-d90)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/virginia-d90)   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/virginia-davenport/)   - Back End Engineer
+- [Terrence Malone](https://github.com/TerrenceAm22)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/TerrenceAM22)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/terrence-malone/) - Back End Engineer
 
-- [Juan Rivera](https://github.com/Juan-Rivera)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Juan-Rivera)   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](linkedin.com/in/juan-rivera-dev) - Back End Engineer
+- [Benjamin Witter](https://github.com/witerone)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/witerone)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">](https://www.linkedin.com/in/benjamin-witter-a8980a50/) - Data Science Engineer
 
-- [Barbara Moore](https://github.com/barbaralois)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/barbaralois)   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/barbaralois/ ) - Front End Engineer
+- [Johann Augustine](https://github.com/DataLovecraft)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/DataLovecraft)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/johannaugustine/) - Data Science Engineer
 
-- [Blayze Stone](https://github.com/blayzestone)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/blayzestone)   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/blayze-stone/) - Front End Engineer
+- [Antonio Martinez Baez](https://github.com/tonomb)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tonomb)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/antoniomtzb/) - Front End Engineer
 
-- [Marta Krawczyk](https://github.com/MartaKode)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/MartaKode)   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/marta-janina-krawczyk/) - Front End Engineer
+- [Maryam Mosstoufi](https://github.com/MaryamMosstoufi)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/MaryamMosstoufi)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/maryammosstoufi/) - Front End Engineer
 
-- [David Cruz](https://github.com/DAVIDCRUZ0202)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/DAVIDCRUZ0202)   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ]( https://www.linkedin.com/in/daavidcruuz/) - Data Science Engineer
-
-- [Johann Augustine](https://github.com/DataLovecraft)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/DataLovecraft)   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/johannaugustine/) - Data Science Engineer
+- [Ashley Bergsma](https://github.com/ashley-bergsma)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/blayzestone)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ashleybergsma89/) - Front End Engineer
 
 ## ⚠ Contributing - future features needed/desired for this project:
 
-> Please refer to the highlited parentheses statements throughout this ReadMe for better understanding
+> Please refer to the highlighted parentheses statements throughout this ReadMe for better understanding
 
-- successful connection between Back End and Data Science teams
-- successful connection between Back End and Front End teams
-- Register/Login functionality added (currenly not functional)
-- ability to reset filters
-- ability to apply and filter by date range
-- ability to filter by source type
-- prevent map refresh/reload when filtering data by incident type:
-    - instead of state or global variables for the filter function, more research can be done on filtering layers inside of map.addLayer() functions using filter functions mapbox has
-    - setting filters is also an options:  https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setfilter
-- make filter for functional with the Graph
-    - add more options to the Graph like filtering by state or zipcode or displaying data based off of date range
+- Successful connection between Back End and Data Science teams
+- Successful connection between Back End and Front End teams
+- User functionality (login, save, share, etc.)
+- Ability to reset filters
+- Ability to apply and filter by date range
+- Ability to filter by source type
+- Prevent map refresh/reload when filtering data by incident type
+- Provide smooth map transitions with minimal clicking
+- A filter to manipulate data on the timeline
+    - Add options to the timeline, like filtering by state or zip code as well as a date range
