@@ -1,18 +1,21 @@
 import React from 'react';
-
 import { TwitterShareButton } from 'react-share';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-// built tweet https://publish.twitter.com/?buttonType=TweetButton&widget=Button
+import '../../styles/twitter-share.css';
 
 export default function TwitterShare() {
   return (
-    <div>
+    <div className="uk-button twitter-btn">
+      <FontAwesomeIcon icon={faTwitter} />
       <TwitterShareButton
+        className="share-btn"
         url="http://google.com"
         children="Tweet"
         title="Human Rights Considered"
-        hashtags={['tag1', 'tag2']}
-        via="tono_mtzb"
+        hashtags={['human-rights-first']}
+        // via="username"
       />
     </div>
   );
