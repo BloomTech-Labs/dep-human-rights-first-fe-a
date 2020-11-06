@@ -2,14 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 
-import NavBar from '../../common/NavBar';
-
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
 
   return (
     <div>
-      <NavBar />
       <h1>Hi {userInfo.name} Welcome to Labs Basic SPA</h1>
       <div>
         <p>
