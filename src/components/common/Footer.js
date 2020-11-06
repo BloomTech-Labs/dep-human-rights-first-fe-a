@@ -2,9 +2,22 @@ import React from 'react';
 import Logo from '../../assets/brand/hrf-footer-logo.png';
 
 export default function Footer() {
+  let year = new Date().getFullYear();
   return (
     <footer>
-      <div className="uk-container">
+      <div className="toggle-container">
+        <button
+          className="uk-button-toggle"
+          type="button"
+          data-uk-toggle="target: .uk-container"
+        >
+          <i class="fal fa-info-circle fa-lg"></i>
+        </button>
+      </div>
+      <div className="uk-container uk-container-expand uk-text-center">
+        Copyright © Human Rights First {year}
+      </div>
+      <div className="uk-container" hidden>
         <div className="uk-flex uk-flex-wrap uk-flex-wrap-around">
           <div className="uk-width-2-5@s uk-card uk-card-body uk-card-small">
             <img
