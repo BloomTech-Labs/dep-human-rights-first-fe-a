@@ -16,7 +16,17 @@
 @global-inverse-color: #fff;
 
 //-------------------------------------
+*:focus {
+  outline: none !important;
+}
+
 footer {
+  min-width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 999;
+  background: @global-background;
+
   .uk-button {
     padding-right: 10px;
     padding-left: 10px;
@@ -40,5 +50,27 @@ footer {
 
   span {
     color: @global-border;
+  }
+
+  .toggle-container {
+    width: 100%;
+    text-align: center;
+    margin-top: -20px;
+  }
+
+  .uk-button-toggle {
+    padding: 0;
+    border-radius: 50% 50% 0 0;
+    border: none;
+    width: 40px;
+    height: 40px;
+    margin-bottom: -20px;
+    background: @global-background;
+    color: @global-link-color;
+    cursor: pointer;
+  }
+
+  .uk-container-expand {
+    padding: 0 5px 5px 5px;
   }
 }
