@@ -15,6 +15,8 @@ import reducer from './state/reducers/';
 import { Loading } from './components/common/Loading';
 import thunk from 'redux-thunk';
 
+import Header from './components/common/Header';
+
 const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
@@ -30,8 +32,11 @@ ReactDOM.render(
 
 function App() {
   return (
-    <Router>
-      <Route exact path="/" component={Loading} />
-    </Router>
+    <>
+      <Header />
+      <Router>
+        <Route exact path="/" component={Loading} />
+      </Router>
+    </>
   );
 }
