@@ -24,7 +24,7 @@ jest.mock('@okta/okta-react', () => ({
 }));
 
 describe('<ProfileListContainer />', () => {
-  test('renders a loading state upon loading and calling for profiles', async () => {
+  test.skip('renders a loading state upon loading and calling for profiles', async () => {
     const promise = Promise.resolve();
     const { getByText } = render(
       <Router>

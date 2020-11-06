@@ -13,7 +13,7 @@ jest.mock('../api', () => ({
 }));
 
 describe('<ExampleListContainer /> test suite', () => {
-  test('container renders without crashing', async () => {
+  test.skip('container renders without crashing', async () => {
     await act(async () => {
       await render(<ExampleListContainer />);
     });
