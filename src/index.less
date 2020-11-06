@@ -8,7 +8,37 @@
 @global-link-color: #215589;
 @global-link-hover-color: #2b6eb2;
 @global-background: #ffffff;
+@global-muted-background: #f8f8f8;
 @global-primary-background: #003767;
 @global-secondary-background: #BC5423;
 @global-danger-background: #a80903;
 @global-border: #afafaf;
+@global-inverse-color: #fff;
+
+//-------------------------------------
+footer {
+  .uk-button {
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: 10px;
+  }
+
+  .uk-button-muted {
+    background: @global-muted-color;
+    border: 1px solid @global-muted-color;
+    color: @global-inverse-color;
+
+    &:hover {
+      background: #7899b7;
+    }
+  }
+
+  .uk-button-text {
+    text-transform: capitalize;
+    margin: 0;
+  }
+
+  span {
+    color: @global-border;
+  }
+}

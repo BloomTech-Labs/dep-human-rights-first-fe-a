@@ -16,6 +16,7 @@ import { Loading } from './components/common/Loading';
 import thunk from 'redux-thunk';
 
 import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -37,6 +38,7 @@ function App() {
       <Router>
         <Route exact path="/" component={Loading} />
       </Router>
+      <Footer />
     </>
   );
 }

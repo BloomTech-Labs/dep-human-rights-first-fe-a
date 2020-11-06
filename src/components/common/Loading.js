@@ -26,10 +26,6 @@ export const Loading = () => {
           </TabPane>
         </Tabs>
       </main>
-      <footer className="page-footer">
-        <small>© Copyright 2020. All rights reserved.</small>
-        <ul></ul>
-      </footer>
     </div>
   );
 };
