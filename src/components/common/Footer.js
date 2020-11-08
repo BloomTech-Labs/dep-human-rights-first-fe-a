@@ -11,7 +11,7 @@ export default function Footer() {
           type="button"
           data-uk-toggle="target: .uk-container"
         >
-          <i class="fal fa-info-circle fa-lg"></i>
+          <i className="fal fa-info-circle fa-lg"></i>
         </button>
       </div>
       <div className="uk-container uk-container-expand uk-text-center">
