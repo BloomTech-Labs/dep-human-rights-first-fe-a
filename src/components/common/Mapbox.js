@@ -9,7 +9,7 @@ const Mapbox = () => {
 
   const [lng, setLng] = useState(-92);
   const [lat, setLat] = useState(36);
-  const [zoom, setZoom] = useState(1.5);
+  const [zoom, setZoom] = useState(3);
 
   // Initialize map when component mounts
   useEffect(() => {
