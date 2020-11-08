@@ -18,6 +18,8 @@ import thunk from 'redux-thunk';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 
+import { VisualizationPage } from './components/pages/Visualization';
+
 const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
@@ -36,9 +38,9 @@ function App() {
     <>
       <Header />
       <Router>
-        <Route exact path="/" component={Loading} />
+        <Route exact path="/" component={VisualizationPage} />
       </Router>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
