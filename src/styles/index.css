@@ -8,10 +8,6 @@
   overflow: hidden;
 }
 
-.map_box {
-  height: 80vh;
-}
-
 .filter-title {
   display: flex;
   justify-content: center;
@@ -256,11 +252,6 @@ a {
 
 /* trying to stylize map */
 
-.mapboxgl-map {
-  position: relative;
-  width: 100%;
-  height: 85vh;
-}
 
 #disappear {
   background-color: white;
