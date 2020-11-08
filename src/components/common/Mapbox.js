@@ -6,9 +6,13 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 const Mapbox = () => {
   const mapContainerRef = useRef(null);
 
-  const [lng, setLng] = useState(-1);
-  const [lat, setLat] = useState(-5);
-  const [zoom, setZoom] = useState(4);
+  const [lng, setLng] = useState(0);
+  const [lat, setLat] = useState(0);
+  const [zoom, setZoom] = useState(0.75);
+  const bounds = [
+    [-32, -18],
+    [32, 14],
+  ];
 
   // Initialize map when component mounts
   useEffect(() => {
@@ -17,10 +21,17 @@ const Mapbox = () => {
       style: 'mapbox://styles/maryam543/ckh95pmzl21jd19n64jww9v1x',
       center: [lng, lat],
       zoom: zoom,
+      maxBounds: bounds,
     });
 
     // Add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    // Add navigation control (scale)
+    var scale = new mapboxgl.ScaleControl({
+      maxWidth: 100,
+      unit: 'imperial',
+    });
+    map.addControl(scale);
 
     map.on('move', () => {
       setLng(map.getCenter().lng.toFixed(4));
@@ -34,11 +45,12 @@ const Mapbox = () => {
 
   return (
     <div>
-      <div className="sidebarStyle">
+      <div className="">
         <div>
           Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
         </div>
       </div>
+
       <div className="map-container" ref={mapContainerRef} />
     </div>
   );
