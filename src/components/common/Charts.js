@@ -1,9 +1,10 @@
 import React from 'react';
 
-import BarGraph from '../amCharts/BarGraph';
-import HeatMapWithLegend from '../amCharts/HeatMapWithLegend';
-import PieChart from '../amCharts/PieChart';
 import RadarTimeline from '../amCharts/RadarTimeline';
+import BarGraph from '../amCharts/BarGraph';
+import PieChart from '../amCharts/PieChart';
+import HeatMapWithLegend from '../amCharts/HeatMapWithLegend';
+import DirectedTree from '../amCharts/DirectedTree';
 
 export default function Charts() {
   return (
@@ -24,6 +25,9 @@ export default function Charts() {
         <li>
           <a href="#">HeatMapWithLegend</a>
         </li>
+        <li>
+          <a href="#">DirectedTree</a>
+        </li>
       </ul>
       <ul className="uk-switcher uk-margin">
         <li>
@@ -37,6 +41,9 @@ export default function Charts() {
         </li>
         <li>
           <HeatMapWithLegend />
+        </li>
+        <li>
+          <DirectedTree />
         </li>
       </ul>
     </div>
