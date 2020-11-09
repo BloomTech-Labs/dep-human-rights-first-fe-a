@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import Mapbox from '../../common/Mapbox';
 import Charts from '../../common/Charts';
-
+import Tables from '../../common/Tables';
 const VisualizationPage = () => {
   // incidents is an array of all incidents pulled in from state
   const incidents = useSelector(state => state.incidents.incidents);
@@ -22,7 +22,7 @@ const VisualizationPage = () => {
           </div>
           <div className="uk-width-large@m uk-text-center">
             <div className="uk-card uk-card-default uk-card-body uk-card-small">
-              table go here
+              <Tables />
             </div>
           </div>
         </div>
