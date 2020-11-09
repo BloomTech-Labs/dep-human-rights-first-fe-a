@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Mapbox from '../../common/Mapbox';
+import Charts from '../../common/Charts';
 
 const VisualizationPage = () => {
   return (
@@ -11,7 +13,7 @@ const VisualizationPage = () => {
               <Mapbox />
             </div>
             <div className="uk-card uk-card-default uk-card-body uk-card-small uk-margin-top">
-              charts go here
+              <Charts />
             </div>
           </div>
           <div className="uk-width-large@m uk-text-center">
