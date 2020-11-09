@@ -1,6 +1,7 @@
 import React from 'react';
 
 import BarGraph from '../amCharts/BarGraph';
+import HeatMapWithLegend from '../amCharts/HeatMapWithLegend';
 import PieChart from '../amCharts/PieChart';
 import RadarTimeline from '../amCharts/RadarTimeline';
 
@@ -20,6 +21,9 @@ export default function Charts() {
         <li>
           <a href="#">PieChart</a>
         </li>
+        <li>
+          <a href="#">HeatMapWithLegend</a>
+        </li>
       </ul>
       <ul className="uk-switcher uk-margin">
         <li>
@@ -30,6 +34,9 @@ export default function Charts() {
         </li>
         <li>
           <PieChart />
+        </li>
+        <li>
+          <HeatMapWithLegend />
         </li>
       </ul>
     </div>
