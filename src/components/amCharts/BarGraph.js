@@ -50,6 +50,8 @@ function BarGraph() {
 
     //* Creates the axes
     let typeAxis = barGraph.xAxes.push(new am4charts.CategoryAxis());
+    typeAxis.title.text = 'Types of Force';
+    typeAxis.dataFields.category = 'type';
 
     //* This is the first Y-axis to display national incidents
     let valueAxis1 = barGraph.yAxes.push(new am4charts.ValueAxis());
