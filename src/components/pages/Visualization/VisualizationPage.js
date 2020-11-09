@@ -2,7 +2,7 @@ import React from 'react';
 
 import Mapbox from '../../common/Mapbox';
 import Charts from '../../common/Charts';
-
+import Tables from '../../common/Tables';
 const VisualizationPage = () => {
   return (
     <section className="uk-section uk-section-small">
@@ -18,7 +18,7 @@ const VisualizationPage = () => {
           </div>
           <div className="uk-width-large@m uk-text-center">
             <div className="uk-card uk-card-default uk-card-body uk-card-small">
-              table go here
+              <Tables />
             </div>
           </div>
         </div>
