@@ -4,13 +4,10 @@
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 
 // Declare action TYPES at the top of the file
-import axios from 'axios';
-export const UPDATE_FILTERS = 'UPDATE_FILTERS';
-export const FETCH_INCIDENTS = 'FETCH_INCIDENTS';
 
-export const updateFilters = filters => {
-  return { type: UPDATE_FILTERS, payload: filters };
-};
+import axios from 'axios';
+
+export const FETCH_INCIDENTS = 'FETCH_INCIDENTS';
 
 export const fetchIncidents = () => dispatch => {
   axios
