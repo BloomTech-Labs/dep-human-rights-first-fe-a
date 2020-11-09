@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import Mapbox from '../../common/Mapbox';
 import Charts from '../../common/Charts';
 import Tables from '../../common/Tables';
 const VisualizationPage = () => {
@@ -14,7 +13,7 @@ const VisualizationPage = () => {
         <div className="uk-grid-small" data-uk-grid>
           <div className="uk-width-expand">
             <div className="uk-card uk-card-default uk-card-body uk-card-small">
-              <Mapbox />
+              map will go here
             </div>
             <div className="uk-card uk-card-default uk-card-body uk-card-small uk-margin-top">
               <Charts />
