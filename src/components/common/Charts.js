@@ -5,6 +5,7 @@ import BarGraph from '../amCharts/BarGraph';
 import PieChart from '../amCharts/PieChart';
 import HeatMapWithLegend from '../amCharts/HeatMapWithLegend';
 import DirectedTree from '../amCharts/DirectedTree';
+import PopulationPyramid from '../amCharts/PopulationPyramid';
 
 export default function Charts() {
   return (
@@ -28,6 +29,9 @@ export default function Charts() {
         <li>
           <a href="#">DirectedTree</a>
         </li>
+        <li>
+          <a href="#">PopulationPyramid</a>
+        </li>
       </ul>
       <ul className="uk-switcher uk-margin">
         <li>
@@ -44,6 +48,9 @@ export default function Charts() {
         </li>
         <li>
           <DirectedTree />
+        </li>
+        <li>
+          <PopulationPyramid />
         </li>
       </ul>
     </div>
