@@ -2,9 +2,7 @@
 // This allows for the simplification of flow when importing reducers into your actions throughout your app.
 import { combineReducers } from 'redux';
 import fetchIncidentsReducer from './fetchIncidentsReducer';
-import filters from './filtersReducer';
 
 export default combineReducers({
-  fetchIncidentsReducer,
-  filters,
+  incidents: fetchIncidentsReducer,
 });
