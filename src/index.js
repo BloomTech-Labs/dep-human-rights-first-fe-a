@@ -12,7 +12,6 @@ import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import reducer from './state/reducers/';
-import { Loading } from './components/common/Loading';
 import thunk from 'redux-thunk';
 
 import Header from './components/common/Header';
