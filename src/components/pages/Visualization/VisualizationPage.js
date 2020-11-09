@@ -1,7 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Mapbox from '../../common/Mapbox';
 
 const VisualizationPage = () => {
+  // incidents is an array of all incidents pulled in from state
+  const incidents = useSelector(state => state.incidents.incidents);
+
   return (
     <section className="uk-section uk-section-small">
       <div className="uk-container uk-container-expand">
