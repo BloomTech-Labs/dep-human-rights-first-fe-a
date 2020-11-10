@@ -211,7 +211,7 @@ function PopulationPyramid() {
   });
 
   function showState(id, stateName, polygon) {
-    if (selectedStateId != id) {
+    if (selectedStateId !== id) {
       var newData = stateData[id];
 
       if (selectedPolygon) {

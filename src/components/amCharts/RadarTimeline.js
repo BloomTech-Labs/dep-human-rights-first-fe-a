@@ -5169,7 +5169,7 @@ function RadarTimeline() {
   }
 
   function updateRadarData(year) {
-    if (currentYear != year) {
+    if (currentYear !== year) {
       currentYear = year;
       yearLabel.text = String(currentYear);
       series.dataFields.valueY = 'value' + currentYear;
