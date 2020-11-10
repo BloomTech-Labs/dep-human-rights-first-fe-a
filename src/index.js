@@ -17,6 +17,9 @@ import thunk from 'redux-thunk';
 import Header from './components/common/Header';
 
 import { VisualizationPage } from './components/pages/Visualization';
+import { MapPage } from './components/pages/Map';
+import { IncidentsPage } from './components/pages/Incidents';
+import { StatsPage } from './components/pages/Stats';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -35,6 +38,9 @@ function App() {
       <Header />
       <Router>
         <Route exact path="/" component={VisualizationPage} />
+        <Route exact path="/map" component={MapPage} />
+        <Route exact path="/incidents" component={IncidentsPage} />
+        <Route exact path="/stats" component={StatsPage} />
       </Router>
     </>
   );
