@@ -93,9 +93,9 @@ function BarGraph() {
     //* Sets ref
     chart.current = barGraph;
 
-    //* Cleans up after unmount
+    // //* Cleans up after unmount
     return () => {
-      chart.dispose();
+      barGraph.dispose();
     };
   });
 
