@@ -3,8 +3,6 @@ import { TwitterShareButton } from 'react-share';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-import '../../styles/twitter-share.css';
-
 export default function TwitterShare() {
   return (
     <div className="uk-button twitter-btn">
