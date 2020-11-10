@@ -6,14 +6,18 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 
 export const useIncidents = () => {
-  return useQuery('incidents', () => {
-    return axios
-      .get(`${process.env.API_URL}/incidents/showallincidents`)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  });
+  return useQuery(
+    'incidents',
+    () => {
+      return axios
+        .get(`https://hrf-a-api.herokuapp.com/incidents/showallincidents`)
+        .then(res => res.data)
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 };
