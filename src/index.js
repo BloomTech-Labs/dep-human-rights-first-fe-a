@@ -7,7 +7,7 @@ import './index.less';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
@@ -36,12 +36,12 @@ function App() {
   return (
     <>
       <Header />
-      <Router>
+      <Switch>
         <Route exact path="/" component={VisualizationPage} />
         <Route exact path="/map" component={MapPage} />
         <Route exact path="/incidents" component={IncidentsPage} />
         <Route exact path="/stats" component={StatsPage} />
-      </Router>
+      </Switch>
     </>
   );
 }
