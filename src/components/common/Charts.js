@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import RadarTimeline from '../amCharts/RadarTimeline';
 import BarGraph from '../amCharts/BarGraph';
@@ -15,22 +16,22 @@ export default function Charts() {
         data-uk-tab="animation: uk-animation-fade; toggle: > *"
       >
         <li>
-          <a href="#">RadarTimeline</a>
+          <Link to="#">RadarTimeline</Link>
         </li>
         <li>
-          <a href="#">BarGraph</a>
+          <Link to="#">BarGraph</Link>
         </li>
         <li>
-          <a href="#">PieChart</a>
+          <Link to="#">PieChart</Link>
         </li>
         <li>
-          <a href="#">HeatMapWithLegend</a>
+          <Link to="#">HeatMapWithLegend</Link>
         </li>
         <li>
-          <a href="#">DirectedTree</a>
+          <Link to="#">DirectedTree</Link>
         </li>
         <li>
-          <a href="#">PopulationPyramid</a>
+          <Link to="#">PopulationPyramid</Link>
         </li>
       </ul>
       <ul className="uk-switcher uk-margin">
