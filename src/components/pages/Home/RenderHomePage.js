@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
@@ -30,9 +29,9 @@ function RenderHomePage(props) {
           <Link to="/map">Map Visualizations Example</Link>
         </p>
         <p>
-          <Button type="primary" onClick={() => authService.logout()}>
+          <button type="primary" onClick={() => authService.logout()}>
             Logout
-          </Button>
+          </button>
         </p>
       </div>
     </div>

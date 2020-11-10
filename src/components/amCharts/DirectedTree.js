@@ -1,7 +1,6 @@
 //* Note: A Force Directed Tree is a special kind of chart used to display of multi-item data related in hierarchical, linear or mixed way, as a series of linked bubbles. *//
 import React, { useLayoutEffect, useRef } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
-import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4plugins_forceDirected from '@amcharts/amcharts4/plugins/forceDirected';
 
 const dummyData = [

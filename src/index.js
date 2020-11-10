@@ -15,7 +15,6 @@ import reducer from './state/reducers/';
 import thunk from 'redux-thunk';
 
 import Header from './components/common/Header';
-import Footer from './components/common/Footer';
 
 import { VisualizationPage } from './components/pages/Visualization';
 
@@ -24,9 +23,7 @@ const store = createStore(reducer, applyMiddleware(thunk));
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </Router>
   </Provider>,
   document.getElementById('root')
@@ -39,7 +36,6 @@ function App() {
       <Router>
         <Route exact path="/" component={VisualizationPage} />
       </Router>
-      {/* <Footer /> */}
     </>
   );
 }

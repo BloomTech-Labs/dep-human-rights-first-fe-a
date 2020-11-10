@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Tables() {
   return (
@@ -8,13 +9,13 @@ export default function Tables() {
         data-uk-tab="animation: uk-animation-fade; toggle: > *"
       >
         <li>
-          <a href="#">Item</a>
+          <Link to="#">Item</Link>
         </li>
         <li>
-          <a href="#">Item</a>
+          <Link to="#">Item</Link>
         </li>
         <li>
-          <a href="#">Item</a>
+          <Link to="#">Item</Link>
         </li>
       </ul>
       <ul className="uk-switcher uk-margin">
