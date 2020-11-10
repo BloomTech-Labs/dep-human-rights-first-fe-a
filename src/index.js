@@ -15,7 +15,6 @@ import reducer from './state/reducers/';
 import thunk from 'redux-thunk';
 
 import Header from './components/common/Header';
-import Footer from './components/common/Footer';
 
 import { VisualizationPage } from './components/pages/Visualization';
 
@@ -37,7 +36,6 @@ function App() {
       <Router>
         <Route exact path="/" component={VisualizationPage} />
       </Router>
-      {/* <Footer /> */}
     </>
   );
 }
