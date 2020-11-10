@@ -1,11 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import Charts from '../../common/Charts';
 import Tables from '../../common/Tables';
+import { useIncidents } from '../../../hooks/useIncidents';
+
 const VisualizationPage = () => {
-  // incidents is an array of all incidents pulled in from state
-  const incidents = useSelector(state => state.incidents.incidents);
+  const incidents = useIncidents();
+
+  // all the incidents data from API
+  console.log(incidents.data);
 
   return (
     <section className="uk-section uk-section-small">
