@@ -22,7 +22,13 @@ export default function Header() {
           <div className="uk-navbar-center">
             <ul className="uk-navbar-nav">
               <li>
-                <Link to="#">Link</Link>
+                <Link to="/map">Map</Link>
+              </li>
+              <li>
+                <Link to="/incidents">Incidents</Link>
+              </li>
+              <li>
+                <Link to="/stats">Stats</Link>
               </li>
             </ul>
           </div>
