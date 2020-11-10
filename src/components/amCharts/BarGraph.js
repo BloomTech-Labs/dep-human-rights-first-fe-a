@@ -1,7 +1,9 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+
+import { useIncidents } from '../../hooks/useIncidents';
 
 const dummyData = [
   {
@@ -37,7 +39,16 @@ const dummyData = [
 ];
 
 function BarGraph() {
+  const incidents = useIncidents();
   const chart = useRef(null);
+  const [graphData, setGraphData] = useState([]);
+
+  useEffect(() => {
+    const data = incidents.data;
+    setGraphData(data);
+  }, [incidents.isSuccess]);
+
+  console.log(graphData);
 
   useLayoutEffect(() => {
     am4core.useTheme(am4themes_animated);
