@@ -4,7 +4,7 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 function RadarTimeline() {
-  const chart = useRef(null);
+  const timelineChart = useRef(null);
 
   var states = {
     California: [
@@ -263,7 +263,8 @@ function RadarTimeline() {
       valueAxis.renderer.axisAngle = chart.startAngle;
     });
     //* sets ref
-    chart.current = chart;
+    timelineChart.current = chart;
+
     return () => {
       chart.dispose();
     };
