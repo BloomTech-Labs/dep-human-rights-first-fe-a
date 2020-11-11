@@ -39,16 +39,16 @@ const dummyData = [
 ];
 
 function BarGraph() {
-  const incidents = useIncidents();
   const chart = useRef(null);
+  const incidents = useIncidents();
   const [graphData, setGraphData] = useState([]);
+  //* The approach: Set up a slice of state [hasLoaded, setHasLoaded] that is turned true when data is received - then conditionally render the graph div
+  //* const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
     const data = incidents.data;
     setGraphData(data);
   }, [incidents.isSuccess]);
-
-  console.log(graphData);
 
   useLayoutEffect(() => {
     am4core.useTheme(am4themes_animated);
