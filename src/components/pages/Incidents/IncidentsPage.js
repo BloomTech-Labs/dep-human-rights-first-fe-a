@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 import IncidentCard from '../../common/IncidentCard';
 import Pagination from '../../common/Pagination';
 
-import { useIncidents } from '../../../hooks/useIncidents';
+import { useIncidents } from '../../../hooks/useIncidentsPaginated';
 
 const IncidentsPage = () => {
-  const getIncidents = useIncidents();
-  const incidents = getIncidents.data;
+  const incidents = useIncidents();
 
   const [itemsPerPage, setItemsPerPage] = useState(24);
   const [page, setPage] = useState('/incidents/?page=1');
@@ -19,17 +18,6 @@ const IncidentsPage = () => {
   const [currentPage, setCurrentPage] = useState();
   const [pageContent, setPageContent] = useState();
 
-  console.log('test', maxPage);
-  let incidentsToRender;
-
-  if (incidents) {
-    incidentsToRender = incidents.map(incident => {
-      return <IncidentCard key={incident.incident_id} incident={incident} />;
-    });
-  } else {
-    incidentsToRender = 'Loading...';
-  }
-
   return (
     <section className="uk-section uk-section-small">
       <div className="uk-container uk-container-expand">
@@ -37,7 +25,16 @@ const IncidentsPage = () => {
           className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m"
           data-uk-grid="masonry: true"
         >
-          {incidentsToRender}
+          {incidents.isLoading
+            ? 'Loading...'
+            : incidents.data.map(incident => {
+                return (
+                  <IncidentCard
+                    key={incident.incident_id}
+                    incident={incident}
+                  />
+                );
+              })}
         </ul>
       </div>
       <Pagination
