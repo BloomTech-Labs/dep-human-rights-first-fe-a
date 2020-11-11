@@ -49,17 +49,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "lint-staged": {
-    "**/*.js": [
-      "eslint --fix",
-      "prettier-eslint --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js"
