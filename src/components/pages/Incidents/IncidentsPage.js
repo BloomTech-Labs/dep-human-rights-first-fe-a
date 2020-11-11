@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import IncidentCard from '../../common/IncidentCard';
+import IncidentFilter from '../../common/IncidentFilter';
 import Pagination from '../../common/Pagination';
 
 import { useIncidents } from '../../../hooks/useIncidents';
@@ -13,13 +14,10 @@ const IncidentsPage = () => {
   const [page, setPage] = useState('/incidents/?page=1');
   const [prevPage, setPrevPage] = useState();
   const [nextPage, setNextPage] = useState();
-  const [maxPage, setMaxPage] = useState(
-    Math.floor(incidents?.length / itemsPerPage)
-  );
+  const [maxPage, setMaxPage] = useState();
   const [currentPage, setCurrentPage] = useState();
   const [pageContent, setPageContent] = useState();
 
-  console.log('test', maxPage);
   let incidentsToRender;
 
   if (incidents) {
@@ -32,9 +30,13 @@ const IncidentsPage = () => {
 
   return (
     <section className="uk-section uk-section-small">
-      <div className="uk-container uk-container-expand">
+      <div
+        className="uk-container uk-container-expand"
+        data-uk-filter="target: .js-filter"
+      >
+        <IncidentFilter />
         <ul
-          className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m"
+          className="js-filter uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m"
           data-uk-grid="masonry: true"
         >
           {incidentsToRender}
