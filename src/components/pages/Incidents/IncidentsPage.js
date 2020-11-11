@@ -8,15 +8,17 @@ import { useIncidents } from '../../../hooks/useIncidentsPaginated';
 const IncidentsPage = () => {
   const incidents = useIncidents();
 
-  const [itemsPerPage, setItemsPerPage] = useState(24);
-  const [page, setPage] = useState('/incidents/?page=1');
-  const [prevPage, setPrevPage] = useState();
-  const [nextPage, setNextPage] = useState();
-  const [maxPage, setMaxPage] = useState(
-    Math.floor(incidents?.length / itemsPerPage)
-  );
-  const [currentPage, setCurrentPage] = useState();
-  const [pageContent, setPageContent] = useState();
+  const [page, setPage] = useState(0);
+
+  // const [itemsPerPage, setItemsPerPage] = useState(24);
+  // const [page, setPage] = useState('/incidents/?page=1');
+  // const [prevPage, setPrevPage] = useState();
+  // const [nextPage, setNextPage] = useState();
+  // const [maxPage, setMaxPage] = useState(
+  //   Math.floor(incidents?.length / itemsPerPage)
+  // );
+  // const [currentPage, setCurrentPage] = useState();
+  // const [pageContent, setPageContent] = useState();
 
   return (
     <section className="uk-section uk-section-small">
@@ -37,13 +39,18 @@ const IncidentsPage = () => {
               })}
         </ul>
       </div>
-      <Pagination
+      <button onClick={() => setPage(old => old - 1)}> Previous</button>
+      <button onClick={() => setPage(old => old + 1)}> Next</button>
+      <span>
+        Current page: {page + 1} {incidents.isFetching ? '...' : ''}
+      </span>
+      {/* <Pagination
         prevPage={prevPage}
         nextPage={nextPage}
         setPage={setPage}
         maxPage={maxPage}
         currentPage={currentPage}
-      ></Pagination>
+      ></Pagination> */}
     </section>
   );
 };
