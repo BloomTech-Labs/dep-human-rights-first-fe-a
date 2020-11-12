@@ -1,101 +1,116 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
-import { useIncidents } from '../../hooks/useIncidents';
+am4core.useTheme(am4themes_animated);
 
-const dummyData = [
+const nationalData = [
   {
-    type: 'soft',
-    local: 125,
-    national: 500,
+    month: 'January',
+    incidents: 350,
+    daily_average: 11.29,
   },
   {
-    type: 'hard',
-    local: 114,
-    national: 400,
+    month: 'February',
+    incidents: 567,
+    daily_average: 20.25,
   },
   {
-    type: 'chemical',
-    local: 165,
-    national: 760,
+    month: 'March',
+    incidents: 478,
+    daily_average: 15.41,
   },
   {
-    type: 'projectiles',
-    local: 125,
-    national: 500,
+    month: 'April',
+    incidents: 705,
+    daily_average: 23.5,
   },
   {
-    type: 'other',
-    local: 78,
-    national: 320,
+    month: 'May',
+    incidents: 600,
+    daily_average: 20,
+  },
+];
+
+const michiganData = [
+  {
+    month: 'January',
+    incidents: 24,
+    daily_average: 0.77,
   },
   {
-    type: 'presence',
-    local: 105,
-    national: 500,
+    month: 'February',
+    incidents: 67,
+    daily_average: 2.16,
+  },
+  {
+    month: 'March',
+    incidents: 47,
+    daily_average: 1.5,
+  },
+  {
+    month: 'April',
+    incidents: 19,
+    daily_average: 0.63,
+  },
+  {
+    month: 'May',
+    incidents: 34,
+    daily_average: 1.09,
   },
 ];
 
 function BarGraph() {
   const chart = useRef(null);
-  const incidents = useIncidents();
-  const [graphData, setGraphData] = useState([]);
-  //* The approach: Set up a slice of state [hasLoaded, setHasLoaded] that is turned true when data is received - then conditionally render the graph div
-  //* const [hasLoaded, setHasLoaded] = useState(false);
-
-  useEffect(() => {
-    const data = incidents.data;
-    setGraphData(data);
-  }, [incidents.isSuccess]);
 
   useLayoutEffect(() => {
-    am4core.useTheme(am4themes_animated);
-
     //* Creates chart instance
     let barGraph = am4core.create('barGraph', am4charts.XYChart);
 
     //* Adds chart data
-    barGraph.data = dummyData;
+    barGraph.data = nationalData;
 
     //* Creates the axes
     let typeAxis = barGraph.xAxes.push(new am4charts.CategoryAxis());
-    typeAxis.title.text = 'Types of Force';
-    typeAxis.dataFields.category = 'type';
+    typeAxis.title.text = 'Month';
+    typeAxis.dataFields.category = 'month';
 
     //* This is the first Y-axis to display national incidents
     let valueAxis1 = barGraph.yAxes.push(new am4charts.ValueAxis());
-    valueAxis1.title.text = 'National Incidents';
+    valueAxis1.title.text = 'Monthly Incidents';
 
     //* This is the second Y-axis to display local incidents
     let valueAxis2 = barGraph.yAxes.push(new am4charts.ValueAxis());
-    valueAxis2.title.text = 'Local Incidents';
+    valueAxis2.title.text = '';
     valueAxis2.renderer.opposite = true;
     valueAxis2.renderer.grid.template.disabled = true;
 
     //* Creates Series for the Y-axis values
     let series1 = barGraph.series.push(new am4charts.ColumnSeries());
-    series1.dataFields.valueY = 'national';
-    series1.dataFields.categoryX = 'type';
+    series1.name = 'Nationwide Total Incidents';
+    series1.dataFields.valueY = 'incidents';
+    series1.dataFields.categoryX = 'month';
     series1.yAxis = valueAxis1;
     series1.fill = barGraph.colors.getIndex(0);
+    series1.columns.template.width = am4core.percent(40);
     series1.strokeWidth = 0;
     series1.clustered = false;
-    series1.columns.template.width = am4core.percent(40);
+
+    series1.tooltipText = '{name}:[bold font-size: 20]{valueY}[/]';
 
     let series2 = barGraph.series.push(new am4charts.ColumnSeries());
-    series2.dataFields.valueY = 'local';
-    series2.dataFields.categoryX = 'type';
+    series2.data = michiganData;
+    series2.name = 'Statewide Total Incidents';
+    series2.dataFields.valueY = 'incidents';
+    series2.dataFields.categoryX = 'month';
     series2.yAxis = valueAxis1;
-    series2.name = 'Locally Reported Incidents';
-    series2.fill = barGraph.colors.getIndex(1).lighten(0.5);
-    series2.strokeWidth = 0;
-    series2.clustered = false;
-    series2.toBack();
+
+    series2.tooltipText = '{name}:[bold font-size: 20]{valueY}[/]';
 
     //* Adds a cursor
     barGraph.cursor = new am4charts.XYCursor();
+    barGraph.cursor.maxTooltipDistance = 20;
 
     //* Adds a legend
     barGraph.legend = new am4charts.Legend();
