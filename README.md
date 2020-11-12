@@ -37,6 +37,13 @@
 
 - [Labs Engineering Standard requirements found here](https://www.notion.so/Human-Rights-First-Roadmap-Labs-28-4725bc357588498587902fed9d9b78c5)
 
+## Data Sources
+ - Police Shooting Fatality
+ 	- Source: Washington Post 
+	- Github: https://github.com/washingtonpost/data-police-shootings
+	- Licence: Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
+	- Time: January 1st 2015 - Present
+
 ### Environment variables
 
 ## Components
