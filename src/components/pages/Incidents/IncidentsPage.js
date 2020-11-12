@@ -7,9 +7,8 @@ import Pagination from '../../common/Pagination';
 import { useIncidents } from '../../../hooks/useIncidents';
 
 const IncidentsPage = () => {
-  const getIncidents = useIncidents();
-  const incidents = getIncidents.data;
-
+  const incidents = useIncidents();
+  console.log('test', incidents)
   const [itemsPerPage, setItemsPerPage] = useState(24);
   const [page, setPage] = useState('/incidents/?page=1');
   const [prevPage, setPrevPage] = useState();
@@ -17,16 +16,6 @@ const IncidentsPage = () => {
   const [maxPage, setMaxPage] = useState();
   const [currentPage, setCurrentPage] = useState();
   const [pageContent, setPageContent] = useState();
-
-  let incidentsToRender;
-
-  if (incidents) {
-    incidentsToRender = incidents.map(incident => {
-      return <IncidentCard key={incident.incident_id} incident={incident} />;
-    });
-  } else {
-    incidentsToRender = 'Loading...';
-  }
 
   return (
     <section className="uk-section uk-section-small">
@@ -39,7 +28,17 @@ const IncidentsPage = () => {
           className="js-filter uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m"
           data-uk-grid="masonry: true"
         >
-          {incidentsToRender}
+          {incidents.isLoading
+            ? 'Loading...'
+            : incidents.data.map(incident => {
+                return (
+                  <IncidentCard
+                    key={incident.incident_id}
+                    incident={incident}
+                  />
+                );
+            })
+          }
         </ul>
       </div>
       <Pagination
