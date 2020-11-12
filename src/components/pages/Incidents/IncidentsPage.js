@@ -1,14 +1,33 @@
 import React, { useState } from 'react';
 
+import {usePaginatedQuery} from 'react-query';
+import axios from 'axios';
+
 import IncidentCard from '../../common/IncidentCard';
 import Pagination from '../../common/Pagination';
 
-import { useIncidents } from '../../../hooks/useIncidentsPaginated';
+// import { useIncidents } from '../../../hooks/useIncidentsPaginated';
 
 const IncidentsPage = () => {
-  const incidents = useIncidents();
+  // const incidents = useIncidents();
 
   const[page,setPage] =useState(0);
+
+  const incidents = usePaginatedQuery('incidents',  () => {
+       axios
+        .get(`https://hrf-a-api.herokuapp.com/incidents/showallincidents/`,{
+          params:{
+            items_limit: 20,
+            offset: page,
+          }
+        })
+        .then(res => res.data)
+        .catch(err => {
+          console.log(err.message);
+        });
+    });
+
+    console.log(incidents);
 
   // const [itemsPerPage, setItemsPerPage] = useState(24);
   // const [page, setPage] = useState('/incidents/?page=1');
@@ -29,7 +48,7 @@ const IncidentsPage = () => {
           className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m"
           data-uk-grid="masonry: true"
         >
-          {incidents.isLoading
+          {/* {incidents.isLoading
             ? 'Loading...'
             : incidents.data.map(incident => {
                 return (
@@ -38,7 +57,7 @@ const IncidentsPage = () => {
                     incident={incident}
                   />
                 );
-              })}
+              })} */}
         </ul>
       </div>
       <button onClick={()=> setPage(old => old-1)}> Previous</button>
