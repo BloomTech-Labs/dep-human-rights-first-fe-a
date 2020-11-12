@@ -28,6 +28,9 @@ export default function Header() {
                 <Link to="/incidents">Incidents</Link>
               </li>
               <li>
+                <Link to="/fatality">Fatality</Link>
+              </li>
+              <li>
                 <Link to="/stats">Stats</Link>
               </li>
             </ul>
