@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
@@ -63,13 +63,20 @@ const michiganData = [
 
 function BarGraph() {
   const chart = useRef(null);
+  const [nationalValues, setNationalValues] = useState([]);
+  const [stateValues, setStateValues] = useState([]);
+
+  useEffect(() => {
+    setNationalValues(nationalData);
+    setStateValues(michiganData);
+  });
 
   useLayoutEffect(() => {
     //* Creates chart instance
     let barGraph = am4core.create('barGraph', am4charts.XYChart);
 
     //* Adds chart data
-    barGraph.data = nationalData;
+    barGraph.data = nationalValues;
 
     //* Creates the axes
     let typeAxis = barGraph.xAxes.push(new am4charts.CategoryAxis());
@@ -100,7 +107,7 @@ function BarGraph() {
     series1.tooltipText = '{name}:[bold font-size: 20]{valueY}[/]';
 
     let series2 = barGraph.series.push(new am4charts.ColumnSeries());
-    series2.data = michiganData;
+    series2.data = stateValues;
     series2.name = 'Statewide Total Incidents';
     series2.dataFields.valueY = 'incidents';
     series2.dataFields.categoryX = 'month';
