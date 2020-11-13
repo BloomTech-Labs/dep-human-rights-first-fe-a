@@ -5,7 +5,7 @@ export default function FatalityCard(props) {
   return (
     <li>
       <div className="uk-card uk-card-default uk-card-small">
-        <div className="uk-card-header uk-background-primary">
+        <div className="uk-card-header uk-background-secondary uk-light">
           <div className="uk-grid-small uk-flex-middle" data-uk-grid>
             <div className="uk-width-auto">
               <span className="uk-icon-button">tt</span>
