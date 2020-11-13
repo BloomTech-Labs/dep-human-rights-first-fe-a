@@ -78,7 +78,7 @@ const IncidentsPage = () => {
             type="button"
             className="uk-button uk-button-primary uk-margin-right"
             onClick={getPreviousPage} disabled={offset === 0}>
-            Previous
+            Prev
           </button>
           <span>
             Page {page} {incidents.isFetching ? '...' : ''}
