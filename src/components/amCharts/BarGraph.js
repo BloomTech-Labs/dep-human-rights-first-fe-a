@@ -122,13 +122,14 @@ function BarGraph() {
     series2.dataFields.valueY = 'incidents';
     series2.dataFields.categoryX = 'month';
     series2.yAxis = valueAxis1;
+    series2.fill = am4core.color('#a80903').lighten(0.2);
     series2.columns.template.width = am4core.percent(50);
 
     series2.tooltipText = '{name}:[bold font-size: 20]{valueY}[/]';
 
     //* Adds a cursor
     barGraph.cursor = new am4charts.XYCursor();
-    barGraph.cursor.maxTooltipDistance = 20;
+    barGraph.cursor.maxTooltipDistance = 5;
 
     //* Adds a legend
     barGraph.legend = new am4charts.Legend();
