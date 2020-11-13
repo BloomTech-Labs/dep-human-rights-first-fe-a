@@ -89,7 +89,7 @@ export default function IncidentCard(props) {
             </div>
           </div>
         </div>
-        <div className="uk-card-body">
+        <div className="uk-card-body uk-margin-bottom" style={{height: '100px', minHeight:'100px', maxHeight:'100px',overflow:'scroll'}}>
           <h6>{incident.title}</h6>
           <p className="incident-description uk-text-small">{incident.desc}</p>
         </div>
