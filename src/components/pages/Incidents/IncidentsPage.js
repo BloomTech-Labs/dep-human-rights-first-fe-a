@@ -51,12 +51,10 @@ const IncidentsPage = () => {
     <section className="uk-section uk-section-small">
       <div
         className="uk-container uk-container-expand"
-        data-uk-filter="target: .js-filter"
       >
-        <IncidentFilter />
         <ul
-          className="js-filter uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m"
-          data-uk-grid="masonry: true"
+          className="uk-grid-match uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l"
+          data-uk-grid
         >
           {incidents.isLoading
             ? 'Loading...'
