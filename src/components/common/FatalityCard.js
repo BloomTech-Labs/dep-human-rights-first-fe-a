@@ -1,4 +1,6 @@
 import React from 'react';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 export default function FatalityCard(props) {
   let victim = props.victim;
@@ -24,7 +26,7 @@ export default function FatalityCard(props) {
             <div className="uk-width-expand">
               <h5 className="uk-margin-remove-bottom">{victim.name}</h5>
               <p className="uk-text-meta uk-margin-remove-top">
-                <time dateTime={victim.date}>{victim.date}</time>
+                <Moment dateTime={victim.date} format="dddd LL" />
               </p>
             </div>
           </div>
