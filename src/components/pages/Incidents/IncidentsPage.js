@@ -11,7 +11,7 @@ const IncidentsPage = () => {
 
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(200); // change to null to get back all data, 200 to test disabled next
+  const [itemsPerPage, setItemsPerPage] = useState(24); // change to null to get back all data, 200 to test disabled next
 
   const incidents = usePaginatedQuery(
     ['incidents', { offset }],
@@ -81,7 +81,7 @@ const IncidentsPage = () => {
             Previous
           </button>
           <span>
-            Current page: {page} {incidents.isFetching ? '...' : ''}
+            Page {page} {incidents.isFetching ? '...' : ''}
           </span>
           <button
             onClick={getNextPage}
