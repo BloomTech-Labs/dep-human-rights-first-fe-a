@@ -84,7 +84,7 @@ export default function IncidentCard(props) {
                 {city}, {state}
               </h5>
               <p className="uk-text-meta uk-margin-remove-top">
-                <Moment dateTime={incident.date} format="dddd LL"/>
+                <Moment dateTime={incident.date} format="dddd LL" />
               </p>
             </div>
           </div>
