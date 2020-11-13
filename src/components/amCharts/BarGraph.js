@@ -2,6 +2,8 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 
+import useDropDown from '../common/useDropDown';
+
 const nationalData = [
   {
     month: 'January',
@@ -58,13 +60,24 @@ const michiganData = [
   },
 ];
 
+const state_list = [
+  'Alabama',
+  'Alaska',
+  'Arizona',
+  'Arkansas',
+  'California',
+  'Colorado',
+];
+
 function BarGraph() {
   const chart = useRef(null);
   const [nationalValues, setNationalValues] = useState([]);
   const [stateValues, setStateValues] = useState([]);
+  const [currentState, StatesDropDown] = useDropDown('States', '', state_list);
 
   useEffect(() => {
     setNationalValues(nationalData);
+    //* to set state values I want the use to select a state, and if that name matches a state on the states array - set it to that object
     setStateValues(michiganData);
   });
 
@@ -109,6 +122,7 @@ function BarGraph() {
     series2.dataFields.valueY = 'incidents';
     series2.dataFields.categoryX = 'month';
     series2.yAxis = valueAxis1;
+    series2.columns.template.width = am4core.percent(50);
 
     series2.tooltipText = '{name}:[bold font-size: 20]{valueY}[/]';
 
@@ -129,7 +143,12 @@ function BarGraph() {
     };
   });
 
-  return <div id="barGraph" style={{ width: '100%', height: '300px' }}></div>;
+  return (
+    <div>
+      <StatesDropDown />
+      <div id="barGraph" style={{ width: '100%', height: '300px' }}></div>
+    </div>
+  );
 }
 
 export default BarGraph;
