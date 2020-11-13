@@ -24,7 +24,7 @@ export default function FatalityCard(props) {
             <div className="uk-width-expand">
               <h5 className="uk-margin-remove-bottom">{victim.name}</h5>
               <p className="uk-text-meta uk-margin-remove-top">
-                <time dateTime="date">Date</time>
+                <time dateTime={victim.date}>{victim.date}</time>
               </p>
             </div>
           </div>
