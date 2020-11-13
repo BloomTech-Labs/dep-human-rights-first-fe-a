@@ -32,8 +32,13 @@ export default function FatalityCard(props) {
           </div>
         </div>
         <div className="uk-card-body">
-          <h6>some title</h6>
-          <p className="incident-description uk-text-small">text</p>
+          <ul className="uk-list uk-list-collapse uk-text-small uk-text-right">
+            <li><span className="uk-float-left">Gender:</span>{victim.gender} </li>
+            <li><span className="uk-float-left">Race: </span>{victim.race}</li>
+            <li><span className="uk-float-left">Location:</span>{victim.city}, {victim.state}</li>
+            <li><span className="uk-float-left"></span></li>
+            <li><span className="uk-float-left"></span></li>
+          </ul>
         </div>
         <div className="uk-card-footer uk-background-muted">
           <a href="#" className="uk-button uk-button-text">
