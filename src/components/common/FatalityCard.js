@@ -22,7 +22,7 @@ export default function FatalityCard(props) {
               )}
             </div>
             <div className="uk-width-expand">
-              <h5 className="uk-margin-remove-bottom">something</h5>
+              <h5 className="uk-margin-remove-bottom">{victim.name}</h5>
               <p className="uk-text-meta uk-margin-remove-top">
                 <time dateTime="date">Date</time>
               </p>
