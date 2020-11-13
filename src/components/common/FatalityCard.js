@@ -8,7 +8,18 @@ export default function FatalityCard(props) {
         <div className="uk-card-header uk-background-secondary uk-light">
           <div className="uk-grid-small uk-flex-middle" data-uk-grid>
             <div className="uk-width-auto">
-              <span className="uk-icon-button">tt</span>
+              {victim.image_url ? (
+                <img
+                  className="uk-border-circle"
+                  width="40"
+                  height="40"
+                  src={victim.image_url}
+                />
+              ) : (
+                <span className="uk-icon-button">
+                  <i className="fal fa-user"></i>
+                </span>
+              )}
             </div>
             <div className="uk-width-expand">
               <h5 className="uk-margin-remove-bottom">something</h5>
