@@ -10,7 +10,7 @@ export const useIncidents = () => {
     'incidents',
     () => {
       return axios
-        .get(`https://hrf-a-api.herokuapp.com/incidents/showallincidents`)
+        .get(`https://hrf-a-api.herokuapp.com/incidents/showallincidents?limit=24&offset=0`)
         .then(res => res.data)
         .catch(err => {
           console.log(err);
