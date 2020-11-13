@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {usePaginatedQuery} from 'react-query';
 import axios from 'axios';
@@ -11,26 +11,44 @@ import Pagination from '../../common/Pagination';
 const IncidentsPage = () => {
   // const incidents = useIncidents();
 
-  const[page,setPage] =useState(0);
+  const[page,setPage] =useState(1);
+  const[offset,setOffset] =useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(200);  // change to null to get back all data
 
-  const incidents = usePaginatedQuery('incidents',  () => {
-       axios
-        .get(`https://hrf-a-api.herokuapp.com/incidents/showallincidents/`,{
+  
+  const incidents = usePaginatedQuery(['incidents',{offset}],  () => {
+       return axios
+        .get(`https://hrf-a-api.herokuapp.com/incidents/showallincidents`,{
           params:{
-            items_limit: 20,
-            offset: page,
+            limit: itemsPerPage,
+            offset: offset,
           }
         })
-        .then(res => res.data)
+        .then(res => {
+          console.log(res.data);
+          return res.data;
+        })
         .catch(err => {
           console.log(err.message);
         });
+    },{
+      refetchOnWindowFocus: false
     });
 
-    console.log(incidents);
+    
+  
+    const getNextPage = ()=> {
+      setOffset(old => old+itemsPerPage);
+      setPage(page + 1);
+    };
 
-  // const [itemsPerPage, setItemsPerPage] = useState(24);
-  // const [page, setPage] = useState('/incidents/?page=1');
+    const getPreviousPage = () => {
+      setOffset(old => old - itemsPerPage);
+      setPage(page -1);
+    };
+
+    console.log(incidents?.data?.incidents?.length);
+
   // const [prevPage, setPrevPage] = useState();
   // const [nextPage, setNextPage] = useState();
   // const [maxPage, setMaxPage] = useState(
@@ -48,27 +66,27 @@ const IncidentsPage = () => {
           className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m"
           data-uk-grid="masonry: true"
         >
-          {/* {incidents.isLoading
+          {incidents.isLoading
             ? 'Loading...'
-            : incidents.data.map(incident => {
+            : incidents.resolvedData.incidents.map(incident => {
                 return (
                   <IncidentCard
                     key={incident.incident_id}
                     incident={incident}
                   />
                 );
-              })} */}
+              })}
         </ul>
       </div>
-      <button onClick={()=> setPage(old => old-1)}> Previous</button>
-      <button onClick={()=> setPage(old => old+1)}> Next</button>
-      <span>Current page: {page + 1} {incidents.isFetching ? '...' : ''}</span>
+      <button onClick={getPreviousPage} disabled={offset === 0}> Previous</button>
+      <button onClick={getNextPage} disabled={incidents?.data?.incidents?.length < itemsPerPage}> Next</button>
+      <span>Current page: {page} {incidents.isFetching ? '...' : ''}</span>
       {/* <Pagination
         prevPage={prevPage}
         nextPage={nextPage}
         setPage={setPage}
         maxPage={maxPage}
-        currentPage={currentPage}
+        currentPage={page}
       ></Pagination> */}
     </section>
   );
