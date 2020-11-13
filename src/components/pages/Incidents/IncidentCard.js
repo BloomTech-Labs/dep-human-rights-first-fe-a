@@ -1,4 +1,6 @@
 import React from 'react';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 export default function IncidentCard(props) {
   let incident = props.incident;
@@ -66,7 +68,7 @@ export default function IncidentCard(props) {
     state = incident.state;
     stateAbbr = stateAbbrList[incident.state];
   }
-
+  
   return (
     <li
       data-state={stateAbbr.toString()}
@@ -82,7 +84,7 @@ export default function IncidentCard(props) {
                 {city}, {state}
               </h5>
               <p className="uk-text-meta uk-margin-remove-top">
-                <time dateTime={incident.date}>{incident.date}</time>
+                <Moment dateTime={incident.date} format="dddd LL"/>
               </p>
             </div>
           </div>
