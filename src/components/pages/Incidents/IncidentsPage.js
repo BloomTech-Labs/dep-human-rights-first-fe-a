@@ -1,7 +1,6 @@
 import React, { useState} from 'react';
 
-
-import IncidentCard from '../../common/IncidentCard';
+import IncidentCard from './IncidentCard';
 import IncidentFilter from '../../common/IncidentFilter';
 import Pagination from '../../common/Pagination';
 
