@@ -16,6 +16,7 @@ export default function FatalityCard(props) {
                   width="40"
                   height="40"
                   src={victim.image_url}
+                  alt={victim.name}
                 />
               ) : (
                 <span className="uk-icon-button">
