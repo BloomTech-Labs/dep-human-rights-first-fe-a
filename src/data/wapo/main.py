@@ -7,8 +7,47 @@ data_source = 'https://raw.githubusercontent.com/washingtonpost/data-police-shoo
 report = pd.read_csv(data_source, na_filter='')
 fatality = [list(row) for row in report.values]
 
+fatalityDict = {}
+for rows in report.values:
+    key = rows[0]
+    fatalityDict[key] = {
+        'name': rows[1],
+        'date': rows[2],
+        'manner_of_death': rows[3],
+        'armed': rows[4],
+        'age': rows[5],
+        'gender': rows[6],
+        'race': rows[7],
+        'city': rows[8],
+        'state': rows[9],
+        'signs_of_mental_illness': rows[10],
+        'threat_level': rows[11],
+        'flee': rows[12],
+        'body_camera': rows[13],
+        'longitude': rows[14],
+        'latitude': rows[15],
+        'is_geocoding_exact': rows[16]
+    }
+
 with open('src/data/wapo/fatality.json', 'w') as json_file:
-    json.dump(fatality, json_file)
+    json.dump(fatalityDict, json_file)
+
+
+byDate = {}
+
+for victim in fatality:
+    if victim[2] == '':
+        if 'unknown' in byDate:
+            byDate['unknown'].append(victim[0])
+        else:
+            byDate['unknown'] = [victim[0]]
+    if victim[2] in byDate:
+        byDate[victim[2]].append(victim[0])
+    else:
+        byDate[victim[2]] = [victim[0]]
+
+with open('src/data/wapo/byDate.json', 'w') as json_file:
+    json.dump(byDate, json_file)
 
 byMannerOfDeath = {}
 
@@ -21,9 +60,15 @@ for victim in fatality:
 with open('src/data/wapo/byMannerOfDeath.json', 'w') as json_file:
     json.dump(byMannerOfDeath, json_file)
 
+
 byArmed = {}
 
 for victim in fatality:
+    if victim[4] == '':
+        if 'unknown' in byArmed:
+            byArmed['unknown'].append(victim[0])
+        else:
+            byArmed['unknown'] = [victim[0]]
     if victim[4] in byArmed:
         byArmed[victim[4]].append(victim[0])
     else:
