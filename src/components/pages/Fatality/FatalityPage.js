@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import FatalityCard from '../../common/FatalityCard';
+import FatalityCard from './FatalityCard';
 
 import fatality from '../../../data/mpv/fatalityList.json'
 
