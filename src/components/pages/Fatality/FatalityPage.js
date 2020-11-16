@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import FatalityCard from '../../common/FatalityCard';
+import FatalityCard from './FatalityCard';
 
 import fatality from '../../../data/mpv/fatalityList.json'
 
@@ -13,7 +13,7 @@ const FatalityPage = () => {
     <section className="uk-section uk-section-small">
       <div className="uk-container uk-container-expand">
         <ul
-          className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m"
+          className="uk-grid-small uk-child-width-1-2@m uk-child-width-1-3@l uk-child-width-1-4@xl"
           data-uk-grid="masonry: true"
         >
           {currentPage.map(victim => {
