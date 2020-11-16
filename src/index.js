@@ -20,6 +20,7 @@ import { VisualizationPage } from './components/pages/Visualization';
 import { MapPage } from './components/pages/Map';
 import { IncidentsPage } from './components/pages/Incidents';
 import { StatsPage } from './components/pages/Stats';
+import { FatalityPage } from './components/pages/Fatality';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -41,6 +42,7 @@ function App() {
         <Route exact path="/map" component={MapPage} />
         <Route exact path="/incidents" component={IncidentsPage} />
         <Route exact path="/stats" component={StatsPage} />
+        <Route exact path="/fatality" component={FatalityPage} />
       </Switch>
     </>
   );
