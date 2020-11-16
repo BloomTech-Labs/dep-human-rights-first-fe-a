@@ -1,9 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+am4core.useTheme(am4themes_animated); 
 
-import { useIncidents } from '../../hooks/useIncidents';
+//import { useIncidents } from '../../hooks/useIncidents';
 
 const dummyData = [
   {
@@ -40,19 +41,8 @@ const dummyData = [
 
 function BarGraph() {
   const chart = useRef(null);
-  const incidents = useIncidents();
-  const [graphData, setGraphData] = useState([]);
-  //* The approach: Set up a slice of state [hasLoaded, setHasLoaded] that is turned true when data is received - then conditionally render the graph div
-  //* const [hasLoaded, setHasLoaded] = useState(false);
-
-  useEffect(() => {
-    const data = incidents.data;
-    setGraphData(data);
-  }, [incidents.isSuccess]);
-
+  
   useLayoutEffect(() => {
-    am4core.useTheme(am4themes_animated);
-
     //* Creates chart instance
     let barGraph = am4core.create('barGraph', am4charts.XYChart);
 

@@ -4,12 +4,12 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4maps from '@amcharts/amcharts4/maps';
 import am4geodata_usaAlbersLow from '@amcharts/amcharts4-geodata/usaAlbersLow';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+am4core.useTheme(am4themes_animated); 
 
 function PopulationPyramid() {
   const chart = useRef(null);
 
   useLayoutEffect(() => {
-    am4core.useTheme(am4themes_animated);
 
     var mainContainer = am4core.create('populationPyramid', am4core.Container);
     mainContainer.width = am4core.percent(100);
