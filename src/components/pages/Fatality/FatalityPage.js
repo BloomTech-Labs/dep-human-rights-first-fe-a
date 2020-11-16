@@ -17,8 +17,8 @@ const FatalityPage = () => {
           data-uk-grid="masonry: true"
         >
           {currentPage.map(victim => {
-                victim_id += 1;
-                return <FatalityCard key={victim_id} victim={victim} />;
+            victim_id += 1;
+            return <FatalityCard key={victim_id} victim={victim} />;
             })
           }
         </ul>

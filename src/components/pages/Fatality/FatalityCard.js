@@ -94,6 +94,20 @@ export default function FatalityCard(props) {
               <span className="uk-float-left uk-margin-small-right">Agency Responsible:</span>
               {victim.agencyResponsibleForDeath ? victim.agencyResponsibleForDeath : noData}
             </li>
+            <li className='uk-text-center uk-margin-top'>
+              <button data-uk-toggle="target: .source_modal" type="button" className='uk-button uk-button-default uk-button-small'>
+                {victim.document_url
+                  ? 'Read'
+                  : noData
+                }
+                
+              </button>
+              <div data-uk-modal className="source_modal">
+                <div class="uk-modal-dialog uk-width-auto">
+                  <iframe src={victim.document_url} className='uk-width-expand' style={{height: '90vh'}}></iframe>
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
