@@ -1,14 +1,34 @@
 import React, {useState} from 'react';
 
 import FatalityCard from '../../common/FatalityCard';
-
-import fatality from '../../../data/mpv/fatalityList.json'
-
+import fatality from '../../../data/mpv/fatalityList.json';
 
 const FatalityPage = () => {
+
+  const itemsPerPage = 24;
+  const [page, setPage] = useState(1);
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(itemsPerPage);
+
   let victim_id = 0;
-  let currentPage = fatality.slice(500, 512)
-  console.log(currentPage)
+  const size = fatality.length;
+  const maxPages = Math.ceil(size/itemsPerPage);
+
+  // sets current data to render 
+  let currentPage= fatality.slice(offset, limit);
+  
+  const getNextPage = () => {
+    setOffset(old => old + itemsPerPage);
+    setLimit(old => old + itemsPerPage);
+    setPage(page + 1);
+  };
+
+  const getPreviousPage = () => {
+    setOffset(old => old - itemsPerPage);
+    setLimit(old => old - itemsPerPage);
+    setPage(page - 1);
+  };
+
   return (
     <section className="uk-section uk-section-small">
       <div className="uk-container uk-container-expand">
@@ -23,6 +43,28 @@ const FatalityPage = () => {
           }
         </ul>
       </div>
+      <section className="uk-section uk-section-small uk-tile-default uk-text-center">
+        <div>
+          <button 
+            type="button"
+            className="uk-button uk-button-primary uk-margin-right"
+            onClick={getPreviousPage} disabled={offset === 0}>
+            Prev
+          </button>
+          <span>
+            Page {page} of {maxPages}
+          </span>
+          <button
+            onClick={getNextPage}
+            disabled={page === maxPages}
+            type="button"
+            className="uk-button uk-button-primary uk-margin-left"
+          >
+            Next
+          </button>
+        </div>
+      </section>
+      
     </section>
   );
 };
