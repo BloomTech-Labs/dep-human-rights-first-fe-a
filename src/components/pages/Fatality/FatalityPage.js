@@ -32,10 +32,7 @@ const FatalityPage = () => {
   return (
     <section className="uk-section uk-section-small">
       <div className="uk-container uk-container-expand">
-        <ul
-          className="uk-grid-small uk-child-width-1-2@m uk-child-width-1-3@l uk-child-width-1-4@xl"
-          data-uk-grid="masonry: true"
-        >
+        <ul className="uk-grid-match uk-grid-small uk-child-width-1-2@m uk-child-width-1-3@l uk-child-width-1-4@xl" data-uk-grid>
           {currentPage.map(victim => {
             victim_id += 1;
             return <FatalityCard key={victim_id} victim={victim} />;
