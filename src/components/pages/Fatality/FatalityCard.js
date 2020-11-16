@@ -34,6 +34,7 @@ export default function FatalityCard(props) {
         </div>
         <div className="uk-card-body">
           <ul className="uk-list uk-list-collapse uk-text-small uk-text-right">
+            <li><span className="uk-float-left">Age:</span>{victim.age}</li>
             <li><span className="uk-float-left">Gender:</span>{victim.gender} </li>
             <li><span className="uk-float-left">Race: </span>{victim.race}</li>
             <li><span className="uk-float-left">Location:</span>{victim.city}, {victim.state}</li>
