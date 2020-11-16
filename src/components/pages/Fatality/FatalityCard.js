@@ -4,7 +4,7 @@ import 'moment-timezone';
 
 export default function FatalityCard(props) {
   let victim = props.victim;
-  let noData = '?'
+  let noData = '?';
   return (
     <li>
       <div className="uk-card uk-card-default uk-card-small uk-text-right">
