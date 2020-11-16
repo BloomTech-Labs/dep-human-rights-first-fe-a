@@ -38,8 +38,7 @@ export default function FatalityCard(props) {
             <li><span className="uk-float-left">Gender:</span>{victim.gender} </li>
             <li><span className="uk-float-left">Race: </span>{victim.race}</li>
             <li><span className="uk-float-left">Location:</span>{victim.city}, {victim.state}</li>
-            <li><span className="uk-float-left"></span></li>
-            <li><span className="uk-float-left"></span></li>
+            <li><span className="uk-float-left">Agency Responsible:</span>{victim.agencyResponsibleForDeath}</li>
           </ul>
         </div>
         <div className="uk-card-footer uk-background-muted">
