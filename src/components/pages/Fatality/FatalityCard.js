@@ -4,9 +4,10 @@ import 'moment-timezone';
 
 export default function FatalityCard(props) {
   let victim = props.victim;
+  let noData = '?'
   return (
     <li>
-      <div className="uk-card uk-card-default uk-card-small">
+      <div className="uk-card uk-card-default uk-card-small uk-text-right">
         <div className="uk-card-header uk-background-secondary uk-light">
           <div className="uk-grid-small uk-flex-middle" data-uk-grid>
             <div className="uk-width-auto">
@@ -34,24 +35,66 @@ export default function FatalityCard(props) {
         </div>
         <div className="uk-card-body">
           <ul className="uk-list uk-list-collapse uk-text-small uk-text-right">
-            <li><span className="uk-float-left">Age:</span>{victim.age}</li>
-            <li><span className="uk-float-left">Gender:</span>{victim.gender} </li>
-            <li><span className="uk-float-left">Race: </span>{victim.race}</li>
-            <li><span className="uk-float-left">Location:</span>{victim.city}, {victim.state}</li>
-            <li><span className="uk-float-left">Cause Of Death:</span>{victim.causeOfDeath}</li>
-            <li><span className="uk-float-left">Criminal Charges:</span>{victim.criminalCharges}</li>
-            <li><span className="uk-float-left">History of Mental Illness:</span>{victim.mentalIllness}</li>
-            <li><span className="uk-float-left">Alleged Weapons:</span>{victim.allegedWeapon}</li>
-            <li><span className="uk-float-left">Alleged Threat Level:</span>{victim.allegedThreatLevel}</li>
-            <li><span className="uk-float-left">Fleeing:</span>{victim.fleeing}</li>
-            <li><span className="uk-float-left">Justified:</span>{victim.justified}</li>
-            <li><span className="uk-float-left">Agency Responsible:</span>{victim.agencyResponsibleForDeath}</li>
+            <li className='uk-text-right'>
+              <span className="uk-float-left uk-margin-small-right">Age:</span>
+              {victim.age ? victim.age : noData}
+            </li>
+            <li className='uk-text-right'>
+              <span className="uk-float-left uk-margin-small-right">Gender:</span>
+              {victim.gender ? victim.gender : noData}
+            </li>
+            <li className='uk-text-right'>
+              <span className="uk-float-left uk-margin-small-right">Race: </span>
+              {victim.race ? victim.race : noData}
+            </li>
+            <li className='uk-text-right'>
+              <span className="uk-float-left uk-margin-small-right">Location:</span>
+              {victim.city}, {victim.state}
+            </li>
+            <li className='uk-text-right'>
+              <span className="uk-float-left uk-margin-small-right">Cause Of Death:</span>
+              {victim.causeOfDeath ? victim.causeOfDeath : noData}
+            </li>
+            <br/>
+            <hr />
+            <li className='uk-text-right'>
+              <span className="uk-float-left uk-margin-small-right">Criminal Charges:</span>
+              {victim.criminalCharges ? victim.criminalCharges : noData}
+            </li>
+            <li className='uk-text-right'>
+              <span className="uk-float-left uk-margin-small-right">History of Mental Illness:</span>
+              {victim.mentalIllness ? victim.mentalIllness : noData}
+            </li>
+            <li className='uk-text-right'>
+              <span className="uk-float-left uk-margin-small-right">Alleged Weapons:</span>
+              {victim.allegedWeapon ? victim.allegedWeapon : noData}
+            </li>
+            <li className='uk-text-right'>
+              <span className="uk-float-left uk-margin-small-right">Alleged Threat Level:</span>
+              {victim.allegedThreatLevel ? victim.allegedWeapon : noData}
+            </li>
+            <li className='uk-text-right'>
+              <span className="uk-float-left uk-margin-small-right">Fleeing:</span>
+              {victim.fleeing ? victim.fleeing : ' ?'}</li>
+            <br/>
+            <hr />
+            <li>
+              <span className="uk-float-left uk-margin-small-right">Body Camera:</span>
+              {victim.bodyCamera ? victim.bodyCamera : noData}
+            </li>
+            <li>
+              <span className="uk-float-left uk-margin-small-right">Off Duty:</span>
+              {victim.offDuty ? victim.offDuty : noData}
+            </li>
+            <li className='uk-text-truncate'>
+              <span className="uk-float-left uk-margin-small-right">Justified:</span>
+              {victim.justified ? victim.justified : noData}
+            </li>
+            <li className='uk-text-truncate'>
+              <span className="uk-float-left uk-margin-small-right">Agency Responsible:</span>
+              {victim.agencyResponsibleForDeath ? victim.agencyResponsibleForDeath : noData}
+            </li>
           </ul>
-        </div>
-        <div className="uk-card-footer uk-background-muted">
-          <a href="#" className="uk-button uk-button-text">
-            footer to be implemented
-          </a>
         </div>
       </div>
     </li>
