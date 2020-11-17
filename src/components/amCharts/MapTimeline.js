@@ -3,8 +3,8 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4maps from '@amcharts/amcharts4/maps';
 import am4geodata_usaLow from '@amcharts/amcharts4-geodata/usaLow';
-import { covid_us_timeline } from '../../data/us_timeline';
-import { covid_us_total_timeline } from '../../data/us_total_timeline';
+import { report_us_timeline } from '../../data/us_timeline';
+import { report_us_total_timeline } from '../../data/us_total_timeline';
 
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import am4themes_dark from '@amcharts/amcharts4/themes/dark';
@@ -74,11 +74,11 @@ function MapTimeline() {
     var numberFormatter = new am4core.NumberFormatter();
 
     var backgroundColor = am4core.color('#1e2128');
-    var confirmedColor = am4core.color('#d21a1a');
-    var deathsColor = am4core.color('#1c5fe5');
+    var deathsColor = am4core.color('#d21a1a');
+    var incidentsColor = am4core.color('#1c5fe5');
 
     // for an easier access by key
-    var colors = { confirmed: confirmedColor, deaths: deathsColor };
+    var colors = { incidents: incidentsColor, deaths: deathsColor };
 
     var countryColor = am4core.color('#3b3b3b');
     var countryStrokeColor = am4core.color('#000000');
@@ -91,7 +91,7 @@ function MapTimeline() {
 
     // last date of the data
     var lastDate = new Date(
-      covid_us_total_timeline[covid_us_total_timeline.length - 1].date
+      report_us_total_timeline[report_us_total_timeline.length - 1].date
     );
     var currentDate = lastDate;
 
@@ -113,7 +113,7 @@ function MapTimeline() {
 
     // make a map of country indexes for later use
     var countryIndexMap = {};
-    var list = covid_us_timeline[covid_us_timeline.length - 1].list;
+    var list = report_us_timeline[report_us_timeline.length - 1].list;
     for (var i = 0; i < list.length; i++) {
       var country = list[i];
       countryIndexMap[country.id] = i;
@@ -123,10 +123,10 @@ function MapTimeline() {
     // if index is not set, get last slide
     function getSlideData(index) {
       if (index === undefined) {
-        index = covid_us_timeline.length - 1;
+        index = report_us_timeline.length - 1;
       }
 
-      var data = covid_us_timeline[index];
+      var data = report_us_timeline[index];
 
       return data;
     }
@@ -139,19 +139,19 @@ function MapTimeline() {
 
     // remove items with 0 values for better performance
     for (var i = mapData.length - 1; i >= 0; i--) {
-      if (mapData[i].confirmed === 0) {
+      if (mapData[i].incidents === 0) {
         mapData.splice(i, 1);
       }
     }
 
-    var max = { confirmed: 0, deaths: 0 };
-    var maxPC = { confirmed: 0, deaths: 0 };
+    var max = { incidents: 0, deaths: 0 };
+    var maxPC = { incidents: 0, deaths: 0 };
 
     // the last day will have most
     for (var i = 0; i < mapData.length; i++) {
       var di = mapData[i];
-      if (di.confirmed > max.confirmed) {
-        max.confirmed = di.confirmed;
+      if (di.incidents > max.incidents) {
+        max.incidents = di.incidents;
       }
       if (di.deaths > max.deaths) {
         max.deaths = di.deaths;
@@ -173,7 +173,7 @@ function MapTimeline() {
 
     container.tooltip = new am4core.Tooltip();
     container.tooltip.background.fill = am4core.color('#000000');
-    container.tooltip.background.stroke = confirmedColor;
+    container.tooltip.background.stroke = incidentsColor;
     container.tooltip.fontSize = '0.9em';
     container.tooltip.getFillFromObject = false;
     container.tooltip.getStrokeFromObject = false;
@@ -209,7 +209,7 @@ function MapTimeline() {
     // Map polygon series (defines how country areas look and behave)
     var polygonSeries = mapChart.series.push(new am4maps.MapPolygonSeries());
     polygonSeries.dataFields.id = 'id';
-    polygonSeries.dataFields.value = 'confirmedPC';
+    polygonSeries.dataFields.value = 'incidentsPC';
     polygonSeries.interpolationDuration = 0;
 
     polygonSeries.useGeodata = true;
@@ -254,7 +254,7 @@ function MapTimeline() {
     var bubbleSeries = mapChart.series.push(new am4maps.MapImageSeries());
     bubbleSeries.data = JSON.parse(JSON.stringify(mapData));
 
-    bubbleSeries.dataFields.value = 'confirmed';
+    bubbleSeries.dataFields.value = 'incidents';
     bubbleSeries.dataFields.id = 'id';
 
     // adjust tooltip
@@ -347,7 +347,7 @@ function MapTimeline() {
     // top title
     var title = mapChart.titles.create();
     title.fontSize = '1.5em';
-    title.text = 'COVID-19 U.S. Spread Data';
+    title.text = 'Police Use Of Force - 2020';
     title.align = 'left';
     title.horizontalCenter = 'left';
     title.marginLeft = 20;
@@ -421,7 +421,7 @@ function MapTimeline() {
     countryName.fill = am4core.color('#ffffff');
     countryName.valign = 'middle';
 
-    // buttons container (confirmed/deaths)
+    // buttons container (incidents/deaths)
     var buttonsContainer = nameAndButtonsContainer.createChild(
       am4core.Container
     );
@@ -465,7 +465,7 @@ function MapTimeline() {
 
     // what to do when slider is dragged
     slider.events.on('rangechanged', function(event) {
-      var index = Math.round((covid_us_timeline.length - 1) * slider.start);
+      var index = Math.round((report_us_timeline.length - 1) * slider.start);
       updateMapData(getSlideData(index).list);
       updateTotals(index);
     });
@@ -513,16 +513,16 @@ function MapTimeline() {
       );
     });
 
-    sizeSlider.startGrip.background.fill = confirmedColor;
+    sizeSlider.startGrip.background.fill = incidentsColor;
     sizeSlider.startGrip.background.fillOpacity = 0.8;
     sizeSlider.startGrip.background.strokeOpacity = 0;
     sizeSlider.startGrip.icon.stroke = am4core.color('#ffffff');
     sizeSlider.startGrip.background.states.getKey(
       'hover'
-    ).properties.fill = confirmedColor;
+    ).properties.fill = incidentsColor;
     sizeSlider.startGrip.background.states.getKey(
       'down'
-    ).properties.fill = confirmedColor;
+    ).properties.fill = incidentsColor;
     sizeSlider.horizontalCenter = 'middle';
 
     sizeSlider.events.on('rangechanged', function() {
@@ -577,16 +577,16 @@ function MapTimeline() {
       );
     });
 
-    filterSlider.startGrip.background.fill = confirmedColor;
+    filterSlider.startGrip.background.fill = incidentsColor;
     filterSlider.startGrip.background.fillOpacity = 0.8;
     filterSlider.startGrip.background.strokeOpacity = 0;
     filterSlider.startGrip.icon.stroke = am4core.color('#ffffff');
     filterSlider.startGrip.background.states.getKey(
       'hover'
-    ).properties.fill = confirmedColor;
+    ).properties.fill = incidentsColor;
     filterSlider.startGrip.background.states.getKey(
       'down'
-    ).properties.fill = confirmedColor;
+    ).properties.fill = incidentsColor;
     filterSlider.horizontalCenter = 'middle';
     filterSlider.start = 1;
 
@@ -672,7 +672,7 @@ function MapTimeline() {
     lineChart.paddingTop = 3;
 
     // make a copy of data as we will be modifying it
-    lineChart.data = JSON.parse(JSON.stringify(covid_us_total_timeline));
+    lineChart.data = JSON.parse(JSON.stringify(report_us_total_timeline));
 
     // date axis
     // https://www.amcharts.com/docs/v4/concepts/axes/date-axis/
@@ -682,8 +682,8 @@ function MapTimeline() {
     dateAxis.renderer.grid.template.strokeOpacity = 0.25;
     dateAxis.max = lastDate.getTime() + am4core.time.getDuration('day', 5);
     dateAxis.tooltip.label.fontSize = '0.8em';
-    dateAxis.tooltip.background.fill = confirmedColor;
-    dateAxis.tooltip.background.stroke = confirmedColor;
+    dateAxis.tooltip.background.fill = incidentsColor;
+    dateAxis.tooltip.background.stroke = incidentsColor;
     dateAxis.renderer.labels.template.fill = am4core.color('#ffffff');
     /*
     dateAxis.renderer.labels.template.adapter.add("fillOpacity", function(fillOpacity, target){
@@ -730,7 +730,7 @@ function MapTimeline() {
     lineChart.cursor.maxTooltipDistance = 0;
     lineChart.cursor.behavior = 'none'; // set zoomX for a zooming possibility
     lineChart.cursor.lineY.disabled = true;
-    lineChart.cursor.lineX.stroke = confirmedColor;
+    lineChart.cursor.lineX.stroke = incidentsColor;
     lineChart.cursor.xAxis = dateAxis;
     // this prevents cursor to move to the clicked location while map is dragged
     am4core
@@ -822,12 +822,12 @@ function MapTimeline() {
     }
 
     // create series
-    var confirmedSeries = addSeries('confirmed', confirmedColor);
-    confirmedSeries.tooltip.disabled = true;
-    confirmedSeries.hidden = false;
+    var incidentsSeries = addSeries('incidents', incidentsColor);
+    incidentsSeries.tooltip.disabled = true;
+    incidentsSeries.hidden = false;
     var deathsSeries = addSeries('deaths', deathsColor);
 
-    var series = { confirmed: confirmedSeries, deaths: deathsSeries };
+    var series = { incidents: incidentsSeries, deaths: deathsSeries };
     // add series
     function addSeries(name, color) {
       var series = lineChart.series.push(new am4charts.LineSeries());
@@ -871,13 +871,13 @@ function MapTimeline() {
       return series;
     }
 
-    var series = { confirmed: confirmedSeries, deaths: deathsSeries };
+    var series = { incidents: incidentsSeries, deaths: deathsSeries };
 
     var columnSeries;
 
     function createColumnSeries() {
       columnSeries = {};
-      columnSeries.confirmed = addColumnSeries('confirmed', confirmedColor);
+      columnSeries.incidents = addColumnSeries('incidents', incidentsColor);
       columnSeries.deaths = addColumnSeries('deaths', deathsColor);
     }
 
@@ -932,10 +932,10 @@ function MapTimeline() {
 
     // BUTTONS
     // create buttons
-    var confirmedButton = addButton('confirmed', confirmedColor);
+    var incidentsButton = addButton('incidents', incidentsColor);
     var deathsButton = addButton('deaths', deathsColor);
 
-    var buttons = { confirmed: confirmedButton, deaths: deathsButton };
+    var buttons = { incidents: incidentsButton, deaths: deathsButton };
 
     // add button
     function addButton(name, color) {
@@ -981,7 +981,7 @@ function MapTimeline() {
       changeDataType(event.target.dummyData);
     }
 
-    // change data type (confirmed/deaths)
+    // change data type (incidents/deaths)
     function changeDataType(name) {
       currentType = name;
       currentTypeName = name;
@@ -1099,17 +1099,17 @@ function MapTimeline() {
     function setCountryData(countryIndex) {
       // instead of setting whole data array, we modify current raw data so that a nice animation would happen
       for (var i = 0; i < lineChart.data.length; i++) {
-        var di = covid_us_timeline[i].list;
+        var di = report_us_timeline[i].list;
 
         var countryData = di[countryIndex];
         var dataContext = lineChart.data[i];
         if (countryData) {
-          dataContext.confirmed = countryData.confirmed;
+          dataContext.incidents = countryData.incidents;
           dataContext.deaths = countryData.deaths;
           valueAxis.min = undefined;
           valueAxis.max = undefined;
         } else {
-          dataContext.confirmed = 0;
+          dataContext.incidents = 0;
           dataContext.deaths = 0;
           valueAxis.min = 0;
           valueAxis.max = 10;
@@ -1205,9 +1205,9 @@ function MapTimeline() {
 
       // update line chart data (again, modifying instead of setting new data for a nice animation)
       for (var i = 0; i < lineChart.data.length; i++) {
-        var di = covid_us_total_timeline[i];
+        var di = report_us_total_timeline[i];
         var dataContext = lineChart.data[i];
-        dataContext.confirmed = di.confirmed;
+        dataContext.incidents = di.incidents;
         dataContext.deaths = di.deaths;
         valueAxis.min = undefined;
         valueAxis.max = undefined;
@@ -1230,7 +1230,7 @@ function MapTimeline() {
     // update total values in buttons
     function updateTotals(index) {
       if (!isNaN(index)) {
-        var di = covid_us_total_timeline[index];
+        var di = report_us_total_timeline[index];
         var date = new Date(di.date);
         currentDate = date;
 
@@ -1260,11 +1260,11 @@ function MapTimeline() {
     function updateMapData(data) {
       //modifying instead of setting new data for a nice animation
       bubbleSeries.dataItems.each(function(dataItem) {
-        dataItem.dataContext.confirmed = 0;
+        dataItem.dataContext.incidents = 0;
         dataItem.dataContext.deaths = 0;
       });
 
-      maxPC = { confirmed: 0, deaths: 0 };
+      maxPC = { incidents: 0, deaths: 0 };
 
       for (var i = 0; i < data.length; i++) {
         var di = data[i];
@@ -1274,18 +1274,18 @@ function MapTimeline() {
         if (image) {
           var population = Number(populations[image.dataItem.dataContext.id]);
 
-          image.dataItem.dataContext.confirmed = di.confirmed;
+          image.dataItem.dataContext.incidents = di.incidents;
           image.dataItem.dataContext.deaths = di.deaths;
         }
 
         if (polygon) {
-          polygon.dataItem.dataContext.confirmedPC =
-            (di.confirmed / population) * 1000000;
+          polygon.dataItem.dataContext.incidentsPC =
+            (di.incidents / population) * 1000000;
           polygon.dataItem.dataContext.deathsPC =
             (di.deaths / population) * 1000000;
 
-          if (polygon.dataItem.dataContext.confirmedPC > maxPC.confirmed) {
-            maxPC.confirmed = polygon.dataItem.dataContext.confirmedPC;
+          if (polygon.dataItem.dataContext.incidentsPC > maxPC.incidents) {
+            maxPC.incidents = polygon.dataItem.dataContext.incidentsPC;
           }
           if (polygon.dataItem.dataContext.deathsPC > maxPC.deaths) {
             maxPC.deaths = polygon.dataItem.dataContext.deathsPC;
@@ -1347,7 +1347,7 @@ function MapTimeline() {
 
     // set initial data and names
     updateCountryName();
-    changeDataType('confirmed');
+    changeDataType('incidents');
 
     setTimeout(updateSeriesTooltip, 3000);
 
@@ -1380,7 +1380,7 @@ function MapTimeline() {
               <thead>
                 <tr>
                   <th>Country/State</th>
-                  <th>Confirmed</th>
+                  <th>Incidents</th>
                   <th>Deaths</th>
                   <th>Recovered</th>
                 </tr>
