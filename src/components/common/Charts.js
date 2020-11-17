@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import RadarTimeline from '../amCharts/RadarTimeline';
 import BarGraph from '../amCharts/BarGraph';
 import PieChart from '../amCharts/PieChart';
-import HeatMapWithLegend from '../amCharts/HeatMapWithLegend';
-import DirectedTree from '../amCharts/DirectedTree';
 import PopulationPyramid from '../amCharts/PopulationPyramid';
+
 
 export default function Charts() {
   return (
@@ -25,12 +24,6 @@ export default function Charts() {
           <Link to="#">PieChart</Link>
         </li>
         <li>
-          <Link to="#">HeatMapWithLegend</Link>
-        </li>
-        <li>
-          <Link to="#">DirectedTree</Link>
-        </li>
-        <li>
           <Link to="#">PopulationPyramid</Link>
         </li>
       </ul>
@@ -43,12 +36,6 @@ export default function Charts() {
         </li>
         <li>
           <PieChart />
-        </li>
-        <li>
-          <HeatMapWithLegend />
-        </li>
-        <li>
-          <DirectedTree />
         </li>
         <li>
           <PopulationPyramid />

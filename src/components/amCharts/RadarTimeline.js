@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+am4core.useTheme(am4themes_animated); 
 
 function RadarTimeline() {
   const timelineChart = useRef(null);
@@ -39,7 +40,6 @@ function RadarTimeline() {
   var currentYear = 2020;
 
   useLayoutEffect(() => {
-    am4core.useTheme(am4themes_animated);
     var colorSet = new am4core.ColorSet();
 
     var chart = am4core.create('radarTimeline', am4charts.RadarChart);

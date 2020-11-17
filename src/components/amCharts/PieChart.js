@@ -3,48 +3,75 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
-const dummyData = [
-  {
-    type: 'soft',
-    number: 125,
-  },
-  {
-    type: 'hard',
-    number: 114,
-  },
-  {
-    type: 'chemical',
-    number: 165,
-  },
-  {
-    type: 'projectiles',
-    number: 125,
-  },
-  {
-    type: 'other',
-    number: 78,
-  },
-  {
-    type: 'presence',
-    number: 105,
-  },
-];
+import ageData from '../../data/wapo/byAge.json';
+am4core.useTheme(am4themes_animated); 
 
 function PieChart() {
   const chart = useRef(null);
+  const pieData = Object.entries(ageData); 
 
+  let returnData = [{
+    category: "under 18", 
+    number: 0
+  },
+  {
+    category: "18-25", 
+    number:0
+  },
+  {
+    category: "25-35", 
+    number: 0
+  },
+  {
+    category: "35-45",
+    number: 0
+  },
+  {
+    category: "45-55", 
+    number: 0
+  }, 
+  {
+    category: "55-65", 
+    number: 0
+  }, 
+  {
+    category: "65 and over", 
+    number: 0
+  }]
+
+  pieData.forEach(function(item) {
+    if (item[0] < 18){
+      returnData[0].number += item[1].length
+    } else if (item[0] >= 18 && item[0] < 25){
+      returnData[1].number += item[1].length
+    } else if (item[0] >= 25 && item[0] < 35){
+      returnData[2].number += item[1].length
+    } else if (item[0] >= 35 && item[0] < 45){
+      returnData[3].number += item[1].length
+    } else if (item[0] >= 45 && item[0] < 55){
+      returnData[4].number += item[1].length
+    } else if (item[0] >= 55 && item[0] < 65){
+      returnData[5].number += item[1].length
+    } else if (item[0] >= 65){
+      returnData[6].number += item[1].length
+    }
+  })
   useLayoutEffect(() => {
-    am4core.useTheme(am4themes_animated);
-
     //* Creates a new chart instance
     let pieChart = am4core.create('pieChart', am4charts.PieChart);
-
-    pieChart.data = dummyData;
+    pieChart.data = returnData;
+    
+    //* Creates chart title 
+    let chartTitle = pieChart.titles.create(); 
+    chartTitle.text = "Victims of Police Brutality by Age"; 
+    chartTitle.fontSize = '1.6rem'; 
+    chartTitle.color = am4core.color('#333')
+    chartTitle.marginBottom = '2%'; 
 
     //* Adds a Series to the chart (a slice)
     let pieSeries = pieChart.series.push(new am4charts.PieSeries());
     pieSeries.dataFields.value = 'number';
-    pieSeries.dataFields.category = 'type';
+    pieSeries.dataFields.category = 'category';
 
     //* Style and behavior rules for the chart series
     pieSeries.slices.template.stroke = am4core.color('#215589');
@@ -62,7 +89,7 @@ function PieChart() {
     };
   });
 
-  return <div id="pieChart" style={{ width: '100%', height: '300px' }}></div>;
+  return <div id="pieChart" style={{ width: '100%', height: '500px' }}></div>;
 }
 
 export default PieChart;
