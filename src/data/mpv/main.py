@@ -44,12 +44,12 @@ for rows in report.values:
         "fatalEncounters_id": rows[28],
     }
 
-with open('/Users/MMM/Documents/Lambda/lab/human-rights-first-fe-a/src/data/mpv/fatality.json', 'w') as json_file:
+with open('src/mpv/fatality.json', 'w') as json_file:
     json.dump(fatalityDict, json_file)
 
 
 fatality = list(fatalityDict.values())
-with open('/Users/MMM/Documents/Lambda/lab/human-rights-first-fe-a/src/data/mpv/fatalityList.json', 'w') as json_file:
+with open('src/mpv/fatalityList.json', 'w') as json_file:
     json.dump(fatality, json_file)
 
 byDate = {}
@@ -66,5 +66,5 @@ for key, value in fatalityDict.items():
         byDate[value['date'][:10]] = [key]
 
 
-with open('/Users/MMM/Documents/Lambda/lab/human-rights-first-fe-a/src/data/mpv/byDate.json', 'w') as json_file:
+with open('src/mpv/byDate.json', 'w') as json_file:
     json.dump(byDate, json_file)
