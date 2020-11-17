@@ -51,3 +51,20 @@ with open('/Users/MMM/Documents/Lambda/lab/human-rights-first-fe-a/src/data/mpv/
 fatality = list(fatalityDict.values())
 with open('/Users/MMM/Documents/Lambda/lab/human-rights-first-fe-a/src/data/mpv/fatalityList.json', 'w') as json_file:
     json.dump(fatality, json_file)
+
+byDate = {}
+
+for key, value in fatalityDict.items():
+    if value['date'] == '':
+        if 'unknown' in byDate:
+            byDate['unknown'].append(key)
+        else:
+            byDate['unknown'] = [key]
+    if value['date'][:10] in byDate:
+        byDate[value['date'][:10]].append(key)
+    else:
+        byDate[value['date'][:10]] = [key]
+
+
+with open('/Users/MMM/Documents/Lambda/lab/human-rights-first-fe-a/src/data/mpv/byDate.json', 'w') as json_file:
+    json.dump(byDate, json_file)
