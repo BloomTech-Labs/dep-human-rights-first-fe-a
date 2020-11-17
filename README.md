@@ -32,9 +32,20 @@
 	- Displays the number of incidents per month for a given location `(not functional)`
 	- Initially displays the number of incidents in the data set per month for the last six months `(not functional)`
 	- Dropdown month ranges will allow the user to change the timeline `(not functional)`
+- Incidents Page: 
+	- Displays cards with social/news information for available incidents 
+	- Allows further filtering to query for a more specific set of incidents 
+- Fatalities Page: 
+	- Renders a collection of cards 
+
+## Libraries
+- amCharts 
+- uikit 
+- react query 
+- 
+
 
 ## Requirements
-
 - [Labs Engineering Standard requirements found here](https://www.notion.so/Human-Rights-First-Roadmap-Labs-28-4725bc357588498587902fed9d9b78c5)
 
 ## Data Sources
@@ -49,9 +60,17 @@
 ## Components
 
 - Header 
-- UserProfile
 - Map 
-- Stats
+- Stats: 
+	- Pie Chart 
+	- Bar Graph 
+	- Timeline
+- Incidents: 
+	- Incident Card
+	- Incidents Page 
+- Fatalities: 
+	- Fatality Card 
+	- Fatality Page 
 - Footer
 
 ## Styling Our App
@@ -92,3 +111,4 @@
 - Provide smooth map transitions with minimal clicking
 - A filter to manipulate data on the timeline
     - Add options to the timeline, like filtering by state or zip code as well as a date range
+
