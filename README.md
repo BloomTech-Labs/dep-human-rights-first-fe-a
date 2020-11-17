@@ -5,8 +5,9 @@
 
 - The team is developing an interactive map that identifies potential instances of police use of force across the United States of America for [Human Rights First](https://www.humanrightsfirst.org/), an independent advocacy and action organization. 
 - The application takes information provided by the data science team, collecting relevant incidents and data from Twitter, Reddit, and police agencies, and displays it on a map.
-- The interactive map will display various incidents of police force, that can be filtered by type of brutality and location. 
-- A timeline graph will display the range of incidents that occurred in a location in a given date span. 
+- A Fatality Tab gives more information about the victims of police brutality 
+- An Incidents Tab shows relevent social and media information relating to individual reports 
+- The stats page has a few components using amCharts
 
 ## Project Overview
 
@@ -21,7 +22,7 @@
 > ⚙Under Construction⚙
 
 ## Features
-- A navigation/header displaying the map, the graph, or the about page. 
+- A navigation/header displaying the Map, the Incidents page, the Fatality page, or the Stats page. 
 - Map: 
 	- Displays incidents on a country, state and city level
 	- A list of states will allow the user to quickly focus on a region
@@ -29,12 +30,27 @@
 	- Allows filtering by source `(not functional)`
 	- Allows user to reset map filters `(not functional)`
 - Graph/Timeline: 
-	- Displays the number of incidents per month for a given location `(not functional)`
-	- Initially displays the number of incidents in the data set per month for the last six months `(not functional)`
+	- Displays the number of incidents for a given location `(not functional)`
 	- Dropdown month ranges will allow the user to change the timeline `(not functional)`
+- Incidents Page: 
+	- Displays cards with social/news information for available incidents 
+	- Allows further filtering to query for a more specific set of incidents 
+- Fatalities Page: 
+	- Renders a collection of cards with individual information about the victims of police brutality  
+- Pie Chart: 
+	- The pie charts visualizes uses the Washington Post data to visualize the reported number of victims of police brutality. 
+	- The data is broken down into age ranges - 18 and under, 18-25, and so on
+- Bar Graph: 
+	- The bar graph is again using the Washington Post data to display the total number of victims of police brutality by state. 
+	- Below the graph is a scrollbar that can be dragged from either end to narrow to display range 
+
+## Libraries
+- amCharts 
+- uikit 
+- react query (a hook `useIncidents` is set up with react query to get a large, complete data set from the backend)
+
 
 ## Requirements
-
 - [Labs Engineering Standard requirements found here](https://www.notion.so/Human-Rights-First-Roadmap-Labs-28-4725bc357588498587902fed9d9b78c5)
 
 ## Data Sources
@@ -49,14 +65,23 @@
 ## Components
 
 - Header 
-- UserProfile
 - Map 
-- Stats
+- Stats: 
+	- Pie Chart 
+	- Bar Graph 
+	- Timeline
+- Incidents: 
+	- Incident Card
+	- Incidents Page 
+- Fatalities: 
+	- Fatality Card 
+	- Fatality Page 
 - Footer
 
 ## Styling Our App
 - `CSS`
 - `UIKit`
+- `Favicon`
 
 ## Data Visualization 
 - `AMcharts` [Docs](https://www.amcharts.com/docs/v4/)
@@ -92,3 +117,4 @@
 - Provide smooth map transitions with minimal clicking
 - A filter to manipulate data on the timeline
     - Add options to the timeline, like filtering by state or zip code as well as a date range
+

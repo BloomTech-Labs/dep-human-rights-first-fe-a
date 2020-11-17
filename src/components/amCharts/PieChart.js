@@ -60,13 +60,13 @@ function PieChart() {
     //* Creates a new chart instance
     let pieChart = am4core.create('pieChart', am4charts.PieChart);
     pieChart.data = returnData;
-    
+
     //* Creates chart title 
     let chartTitle = pieChart.titles.create(); 
     chartTitle.text = "Victims of Police Brutality by Age"; 
     chartTitle.fontSize = '1.6rem'; 
-    chartTitle.color = am4core.color('#333')
-    chartTitle.marginBottom = '2%'; 
+    chartTitle.fill = am4core.color('#215589')
+    chartTitle.marginBottom = 30; 
 
     //* Adds a Series to the chart (a slice)
     let pieSeries = pieChart.series.push(new am4charts.PieSeries());
