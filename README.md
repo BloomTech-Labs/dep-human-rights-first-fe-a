@@ -6,8 +6,8 @@
 - The team is developing an interactive map that identifies potential instances of police use of force across the United States of America for [Human Rights First](https://www.humanrightsfirst.org/), an independent advocacy and action organization. 
 - The application takes information provided by the data science team, collecting relevant incidents and data from Twitter, Reddit, and police agencies, and displays it on a map.
 - A Fatality Tab gives more information about the victims of police brutality 
-- An Incidents Tab shows relevent social and media information relating to individual reports 
-- The stats page has a few components using amCharts
+- An Incidents Tab shows relevent social and media information relating to individual reports of police use of force  
+- The stats page has a few components using amCharts - the amCharts library is expansive and capable of showing highly organized layers of data. 
 
 ## Project Overview
 
@@ -44,11 +44,19 @@
 	- The bar graph is again using the Washington Post data to display the total number of victims of police brutality by state. 
 	- Below the graph is a scrollbar that can be dragged from either end to narrow to display range 
 
+
 ## Libraries
 - amCharts 
 - uikit 
 - react query (a hook `useIncidents` is set up with react query to get a large, complete data set from the backend)
 
+## Tech Stack Tips: 
+
+- amCharts:
+	- amCharts is a data visualization library, responsiveness comes baked in, which is a great perk. 
+	- The charts are instantiated inside a useLayoutEffect hook... this hook is pretty much a useEffect hook, except that it works synchronously, after DOM mutations 
+	- The graphs, slices, lines, etc that appear in a chart are called a 'series.' They have a huge range of methods that control their styling, tag text, shading, positioning and more - check the docs they have a lot of examples of different kinds of cool series classes - the line series is an interesting one that could be used with the bar graph, for example
+	- Make sure that you add refs to charts, if they don't dispose of themselves correctly they break the charts around them
 
 ## Requirements
 - [Labs Engineering Standard requirements found here](https://www.notion.so/Human-Rights-First-Roadmap-Labs-28-4725bc357588498587902fed9d9b78c5)
@@ -59,8 +67,6 @@
 	- Github: https://github.com/washingtonpost/data-police-shootings
 	- Licence: Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
 	- Time: January 1st 2015 - Present
-
-### Environment variables
 
 ## Components
 
@@ -101,20 +107,18 @@
 
 - [Maryam Mosstoufi](https://github.com/MaryamMosstoufi)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/MaryamMosstoufi)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/maryammosstoufi/) - Front End Engineer
 
-- [Ashley Bergsma](https://github.com/ashley-bergsma)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/blayzestone)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ashleybergsma89/) - Front End Engineer
+- [Ashley Bergsma](https://github.com/ashley-bergsma)[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ashley-bergsma)[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ashleybergsma89/) - Front End Engineer
 
-## ⚠ Contributing - future features needed/desired for this project:
 
-> Please refer to the highlighted parentheses statements throughout this ReadMe for better understanding
+## Wishlist 
+Here are the things we wish we'd done, but alas, time flies when you're having fun... 🎉🎠
 
-- Successful connection between Back End and Data Science teams
-- Successful connection between Back End and Front End teams
-- User functionality (login, save, share, etc.)
-- Ability to reset filters
-- Ability to apply and filter by date range
-- Ability to filter by source type
-- Prevent map refresh/reload when filtering data by incident type
-- Provide smooth map transitions with minimal clicking
-- A filter to manipulate data on the timeline
-    - Add options to the timeline, like filtering by state or zip code as well as a date range
-
+- A successful connection between the DS and backend and the frontend, the backend now has more endpoints that are just waiting to be used! 
+- User functionality (login, save, share, etc)
+- Show more information and allow filtering in charts:
+	- In the bar graph, comparative data can be shown if another series is added to the chart. A reusable dropdown [Hook](https://dev.to/vunderkind/quick-introduction-to-react-custom-hooks-with-dropdown-selection-edh) could allow users to filter through the kind of data they want to see. 
+	- In the pie chart more global data could be broken down (display different types of force, ethnicities, etc)
+- Color code fatality and incident cards 
+- Further build out the timeline (i.e. the RadarTimeline) to contain state, city, and national data. 
+- Build out the Population Pyramid component - this amCharts chart is currently showing a comparison of the male-to-female population in the US. 
+- Connect map to backend 

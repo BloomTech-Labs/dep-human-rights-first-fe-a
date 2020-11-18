@@ -8,8 +8,10 @@ am4core.useTheme(am4themes_animated);
 
 function PieChart() {
   const chart = useRef(null);
-  const pieData = Object.entries(ageData); 
 
+  // gathers data into two-element sets
+  const pieData = Object.entries(ageData); 
+  // storage for chart data
   let returnData = [{
     category: "under 18", 
     number: 0
@@ -39,6 +41,7 @@ function PieChart() {
     number: 0
   }]
 
+  // This spaghetti is for cleaning the data before feeding it to the pie chart. 
   pieData.forEach(function(item) {
     if (item[0] < 18){
       returnData[0].number += item[1].length
