@@ -25,9 +25,6 @@ const IncidentsPage = () => {
         })
         .then(res => {
           return res.data;
-        })
-        .catch(err => {
-          console.log(err.message);
         });
     },
     {

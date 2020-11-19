@@ -19,7 +19,7 @@
 
 
 ## Deployed App
-> ⚙Under Construction⚙
+### [App](https://main.d2v2y4y91pkwd.amplifyapp.com/)
 
 ## Features
 - A navigation/header displaying the Map, the Incidents page, the Fatality page, or the Stats page. 
@@ -34,9 +34,10 @@
 	- Dropdown month ranges will allow the user to change the timeline `(not functional)`
 - Incidents Page: 
 	- Displays cards with social/news information for available incidents 
-	- Allows further filtering to query for a more specific set of incidents 
+	- Pagination implemented at 24 records per page
 - Fatalities Page: 
 	- Renders a collection of cards with individual information about the victims of police brutality  
+	- - Pagination implemented at 24 record per page
 - Pie Chart: 
 	- The pie charts visualizes uses the Washington Post data to visualize the reported number of victims of police brutality. 
 	- The data is broken down into age ranges - 18 and under, 18-25, and so on
@@ -71,6 +72,7 @@
 ## Components
 
 - Header 
+- Timeline Map
 - Map 
 - Stats: 
 	- Pie Chart 
@@ -115,10 +117,16 @@ Here are the things we wish we'd done, but alas, time flies when you're having f
 
 - A successful connection between the DS and backend and the frontend, the backend now has more endpoints that are just waiting to be used! 
 - User functionality (login, save, share, etc)
+	- login using twitter auth with [passpor.js](http://www.passportjs.org/)
+	- twitter share component is already built but we didnt end up using it `src/components/common/TwitterShare.js`
 - Show more information and allow filtering in charts:
 	- In the bar graph, comparative data can be shown if another series is added to the chart. A reusable dropdown [Hook](https://dev.to/vunderkind/quick-introduction-to-react-custom-hooks-with-dropdown-selection-edh) could allow users to filter through the kind of data they want to see. 
 	- In the pie chart more global data could be broken down (display different types of force, ethnicities, etc)
 - Color code fatality and incident cards 
 - Further build out the timeline (i.e. the RadarTimeline) to contain state, city, and national data. 
+	- Radar timelines data is already fromated, just need an endpoint to return exact format and it should work.
 - Build out the Population Pyramid component - this amCharts chart is currently showing a comparison of the male-to-female population in the US. 
 - Connect map to backend 
+- Filtering to query for a more specific set of incidents on incidents & fatality pages
+- Use users geolocation to show more relevant data
+	-  we built a useGeolocation hook to pull in the location `src/hooks/useGeolocation`
